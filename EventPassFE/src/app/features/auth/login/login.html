@@ -1,0 +1,51 @@
+<mat-card class="login-card">
+  <mat-card-title>Login</mat-card-title>
+
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="Login()">
+    <mat-form-field appearance="outline" class="full">
+      <mat-label>Email</mat-label>
+      <input 
+        matInput 
+        type="email" 
+        placeholder="Unesite email"
+        formControlName="email">
+      <mat-error *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.touched">
+        Email is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full">
+      <mat-label>Password</mat-label>
+      <input 
+        matInput 
+        [type]="hidePassword ? 'password' : 'text'"
+        placeholder="Enter password"
+        formControlName="password">
+      <button 
+        mat-icon-button 
+        matSuffix 
+        type="button" 
+        (click)="hidePassword = !hidePassword" 
+        aria-label="Show/hide password">
+        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      <mat-error *ngIf="loginForm.controls.password.invalid && loginForm.controls.password.touched">
+        Password is required
+      </mat-error>
+    </mat-form-field>
+
+    <button 
+      mat-raised-button 
+      color="primary" 
+      type="submit" 
+      [disabled]="loginForm.invalid"
+      class="submit-btn">
+      Sign in
+    </button>
+
+    <p class="info-text">
+      Don't have an account ?
+      <a routerLink="/auth/register" class="link">Create an new one!</a>
+    </p>
+  </form>
+</mat-card>

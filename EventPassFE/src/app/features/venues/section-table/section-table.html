@@ -1,0 +1,28 @@
+<table class="sections-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Capacity</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (section of sections; track $index) {
+      <tr>
+        <td>{{section.name}}</td>
+        <td>{{section.capacity}}</td>
+        <td>
+          <button mat-icon-button color="primary" aria-label="Edit section" type="button" (click)="startEditing(section)">
+            <mat-icon>edit_note</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" aria-label="Delete section" type="button" (click)="deleteSection(section)">
+            <mat-icon>delete_forever</mat-icon>
+          </button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<app-section-form *ngIf="isEditing" [sectionToUpdate]="selectedSection" (toBeUpdated)="submitEditedSection($event)"></app-section-form>

@@ -1,0 +1,119 @@
+<div class="container" *ngIf="!isLoading">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        {{ isEditMode ? 'Edit Event' : 'Create New Event' }}
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="eventForm" class="event-form">
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Event Name</mat-label>
+            <input matInput formControlName="name" placeholder="Enter event name">
+            <mat-error>{{ getErrorMessage('name') }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" rows="4"
+                      placeholder="Enter event description"></textarea>
+            <mat-error>{{ getErrorMessage('description') }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Banner URL</mat-label>
+            <input matInput formControlName="bannerURL" placeholder="https://example.com/banner.jpg">
+            <mat-error>{{ getErrorMessage('bannerURL') }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Start Date & Time</mat-label>
+            <input matInput [matDatepicker]="startPicker" formControlName="startDate">
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+            <mat-error>{{ getErrorMessage('startDate') }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>End Date & Time</mat-label>
+            <input matInput [matDatepicker]="endPicker" formControlName="endDate">
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+            <mat-error>{{ getErrorMessage('endDate') }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Duration</mat-label>
+            <input matInput type="time" formControlName="duration">
+            <mat-error>{{ getErrorMessage('duration') }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Minimum Age</mat-label>
+            <input matInput type="number" formControlName="minimumAge" min="0" max="100">
+            <mat-error>{{ getErrorMessage('minimumAge') }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Performer</mat-label>
+            <mat-select formControlName="performerID">
+              <mat-option *ngFor="let p of performers" [value]="p.id">
+                {{ p.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ getErrorMessage('performerID') }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="categoryId">
+              <mat-option *ngFor="let c of categories" [value]="c.id">
+                {{ c.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ getErrorMessage('categoryId') }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Organizer</mat-label>
+            <mat-select formControlName="organizerID">
+              <mat-option *ngFor="let o of organizers" [value]="o.id">
+                {{ o.name }} ({{ o.city }})
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ getErrorMessage('organizerID') }}</mat-error>
+          </mat-form-field>
+
+        </div>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-button type="button" (click)="goBack()">Cancel</button>
+
+      <button mat-raised-button color="primary"
+              (click)="onSubmit()"
+              [disabled]="!eventForm.valid || isLoading">
+        {{ isEditMode ? 'Update' : 'Create' }} Event
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<div *ngIf="isLoading" class="loading-spinner">
+  <mat-spinner></mat-spinner>
+</div>

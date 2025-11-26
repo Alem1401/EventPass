@@ -1,0 +1,53 @@
+<mat-card class="register-card"  >
+  <mat-card-title>Register</mat-card-title>
+
+  <form class="register-form" [formGroup]="registerForm" (ngSubmit)="registerUser()">
+    <div class="name-row">
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>First Name</mat-label>
+        <input matInput placeholder="Name" formControlName="firstName" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="Surname" formControlName = "lastName" />
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="full">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" placeholder="Email" formControlName = "email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" placeholder="Password" formControlName="password"/>
+      <button mat-icon-button matSuffix type="button" aria-label="Show/hide password">
+        <mat-icon>visibility_off</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full">
+      <mat-label>Confirm Password</mat-label>
+      <input matInput type="password" placeholder="Confirm password" formControlName="confirmPassword"/>
+      <button mat-icon-button matSuffix type="button" aria-label="Show/hide password">
+        <mat-icon>visibility_off</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="submit-btn">
+      Register
+    </button>
+
+    
+    @if (!passwordValid) {
+      <p>Password must contain one special character and one upper character</p>
+      
+      
+    }
+  </form>
+  <p class="info-text">
+    Already have account?
+    <a routerLink="/auth/login" class="link">Login</a>
+  </p>
+</mat-card>

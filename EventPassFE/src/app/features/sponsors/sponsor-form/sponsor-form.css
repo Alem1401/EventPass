@@ -1,0 +1,68 @@
+/* Container around the card */
+.container {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* The card itself will take full width up to 600px */
+mat-card {
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Form layout */
+.sponsor-form .form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* Full width fields */
+.full-width {
+  flex: 1 1 100%;
+}
+
+/* Half-width fields */
+mat-form-field:not(.full-width) {
+  flex: 1 1 calc(50% - 8px);
+}
+
+/* Buttons at the bottom */
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+/* Loading spinner styling */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+/* Error text styling */
+mat-error {
+  font-size: 12px;
+  color: #f44336;
+}
+
+/* Optional: link to go back */
+.info-text {
+  text-align: center;
+  margin-top: 16px;
+  color: #666;
+}
+
+.info-text a {
+  text-decoration: none;
+  color: #3f51b5;
+  font-weight: 500;
+}
+
+.info-text a:hover {
+  text-decoration: underline;
+}

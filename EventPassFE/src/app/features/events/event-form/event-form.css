@@ -1,0 +1,81 @@
+.container {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+}
+
+mat-card {
+  border-radius: 16px;
+  padding-bottom: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+mat-card-title {
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.event-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-form-field {
+  flex: 1;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+mat-datepicker-toggle {
+  margin-right: 6px;
+}
+
+mat-card-actions {
+  padding: 1rem 1.5rem;
+}
+
+button[mat-button],
+button[mat-raised-button] {
+  padding: 0.6rem 1.4rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 750px) {
+  .form-row {
+    flex-direction: column;
+  }
+}
+
+textarea[matInput] {
+  min-height: 100px;
+}
+
+input[type="time"] {
+  padding: 0.5rem;
+  font-size: 0.95rem;
+}
+
+mat-error {
+  font-size: 0.8rem;
+  font-weight: 400;
+}

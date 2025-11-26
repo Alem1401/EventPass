@@ -1,0 +1,10 @@
+<mat-toolbar class="mat-toolbar">
+  <span class="logo">EventPass</span>
+  <span class="spacer"></span>
+
+ @if(currentUser === null){
+  <button mat-button routerLink="auth/register">Signup</button>
+  <button mat-raised-button color="accent" routerLink="auth/login" >Login</button>
+}
+@else 
+{<span >{{ currentUser.name }}</span>}

@@ -1,0 +1,57 @@
+<mat-card class="sponsors-card">
+  <h2 class="title">Sponsors</h2>
+
+  <div class="spinner-wrapper" *ngIf="loading">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+
+  <table mat-table [dataSource]="sponsors" class="mat-elevation-z8" *ngIf="!loading">
+
+    <ng-container matColumnDef="logo">
+      <th mat-header-cell *matHeaderCellDef> Logo </th>
+      <td mat-cell *matCellDef="let sponsor">
+        <img *ngIf="sponsor.logoUrl" [src]="sponsor.logoUrl" class="logo">
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let sponsor"> {{ sponsor.name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="website">
+      <th mat-header-cell *matHeaderCellDef> Website </th>
+      <td mat-cell *matCellDef="let sponsor">
+        <a [href]="sponsor.websiteUrl" target="_blank">{{ sponsor.websiteUrl }}</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let sponsor"> {{ sponsor.email }} </td> 
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef> Phone </th>
+      <td mat-cell *matCellDef="let sponsor"> {{ sponsor.phone }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let sponsor">
+            <button mat-icon-button color="primary" (click)="onEditSponsor(sponsor.id)">
+            <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="onClickDelete(sponsor.id)">
+            <mat-icon>delete</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <button mat-raised-button color="primary" class="add-btn"(click)="onAddSponsorClick()">
+    Add sponsor
+    </button>
+</mat-card>

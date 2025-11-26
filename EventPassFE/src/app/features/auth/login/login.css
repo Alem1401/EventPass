@@ -1,0 +1,46 @@
+.login-card {
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+mat-form-field.full {
+  width: 100%;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 10px 0;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.info-text {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 12px;
+  color: #555;
+}
+
+.link {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+

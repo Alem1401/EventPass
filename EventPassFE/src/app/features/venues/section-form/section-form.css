@@ -1,0 +1,29 @@
+.form-card {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+.item-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+mat-form-field.full {
+  width: 100%;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px 0;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-top: 16px;
+}

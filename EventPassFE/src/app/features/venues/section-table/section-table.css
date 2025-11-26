@@ -1,0 +1,35 @@
+.sections-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.sections-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 12px;
+}
+
+.sections-table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.sections-table tr:hover {
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.sections-table tr.selected {
+  background-color: #e3f2fd;
+  border-left: 4px solid #2196f3;
+}
+
+button {
+  margin: 0 4px;
+}

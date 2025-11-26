@@ -1,0 +1,78 @@
+<div class="performer-form-container">
+  <mat-card class="form-card">
+    <mat-card-header>
+      <mat-card-title>
+        {{ isEditMode ? 'Edit Performer' : 'Create Performer' }}
+      </mat-card-title>
+      <mat-card-subtitle>All fields marked are required</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="loading-overlay" *ngIf="loading">
+        <mat-progress-spinner diameter="40" mode="indeterminate"></mat-progress-spinner>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="submit()" class="performer-form">
+
+        <mat-form-field appearance="outline" class="form-field-full">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" />
+          <mat-error *ngIf="form.get('name')?.touched">
+            Name must be at least 2 characters.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field-full">
+          <mat-label>Image URL</mat-label>
+          <input matInput formControlName="imageURL" />
+          <mat-error *ngIf="form.get('imageURL')?.touched">
+            Enter a valid URL starting with http:// or https://
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field-full">
+          <mat-label>Website</mat-label>
+          <input matInput formControlName="website" />
+          <mat-error *ngIf="form.get('website')?.touched">
+            Enter a valid URL.
+          </mat-error>
+        </mat-form-field>
+
+        <h3>Social Media Links</h3>
+
+        <button mat-stroked-button type="button" color="primary" (click)="addSocialLink()">
+          Add Link
+        </button>
+
+        <div formArrayName="socialMedia">
+          <div *ngFor="let sm of socialMedia.controls; let i = index" [formGroupName]="i">
+
+            <mat-form-field appearance="outline" class="form-field-full">
+              <mat-label>Social link</mat-label>
+              <input matInput formControlName="link" />
+              <mat-error *ngIf="socialMedia.at(i).get('link')?.touched">
+                Enter a valid URL.
+              </mat-error>
+            </mat-form-field>
+
+            <button mat-icon-button color="warn" type="button" (click)="removeSocialLink(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button mat-stroked-button type="button" (click)="cancel()">
+            Back
+          </button>
+
+          <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid || submitting || loading">
+            {{ isEditMode ? 'Save Changes' : 'Create Performer' }}
+            <mat-progress-spinner *ngIf="submitting" diameter="20" mode="indeterminate"></mat-progress-spinner>
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+
+  </mat-card>
+</div>

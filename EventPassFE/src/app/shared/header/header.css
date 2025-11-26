@@ -1,0 +1,29 @@
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+button[mat-button] {
+  color: white;
+  font-weight: 500;
+}
+
+button[mat-raised-button] {
+  margin-left: 8px;
+}
+
+.mat-toolbar {
+  background-color: #1976d2;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  height: 64px;
+}
+.username{
+  color :white;
+}
