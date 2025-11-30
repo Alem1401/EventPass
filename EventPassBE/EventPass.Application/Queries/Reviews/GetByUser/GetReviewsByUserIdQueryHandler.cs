@@ -20,8 +20,8 @@ namespace EventPass.Application.Queries.Reviews.GetByUser
             {
                 Id = r.Id,
                 Rating = r.Rating,
-                PerformerID = r.PerformerID,
-                UserID = r.UserID,
+                PerformerID = (int)r.PerformerID,
+                UserID = (int)r.UserID,
                 UserName = r.User.Name,
                 PerformerName = r.Performer.Name
             });

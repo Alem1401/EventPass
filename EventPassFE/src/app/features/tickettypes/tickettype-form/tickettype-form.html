@@ -1,0 +1,42 @@
+<mat-card class="tickettype-card wider-card">
+	<mat-card-title></mat-card-title>
+
+	<form class="tickettype-form wider-form" [formGroup]="ticketTypeGroup" (ngSubmit)="addNew()">
+		<div class="name-row">
+			<mat-form-field appearance="outline" class="full">
+				<mat-label>Price</mat-label>
+				<input matInput type="number" placeholder="Enter price" formControlName="price" />
+				@if(ticketTypeGroup.controls.price.touched && ticketTypeGroup.controls.price.invalid){
+					<mat-error>You must set a valid price!</mat-error>
+				}
+			</mat-form-field>
+
+			<mat-form-field appearance="outline" class="full">
+				<mat-label>Tickets Remaining</mat-label>
+				<input matInput type="number" placeholder="Enter number of tickets" formControlName="remaining"/>
+				@if(ticketTypeGroup.controls.remaining.touched && ticketTypeGroup.controls.remaining.invalid){
+					<mat-error>You must set a valid value!</mat-error>
+				}
+			</mat-form-field>
+		</div>
+
+		<mat-form-field appearance="outline" class="full">
+			<mat-label>Section</mat-label>
+			<mat-select formControlName="section">
+				@for (s of sections; track $index) {
+					<mat-option  [value]="s.id" >{{ s.name }}</mat-option>
+					@if(ticketTypeGroup.controls.section.touched && ticketTypeGroup.controls.section.invalid){
+					<mat-error>You must select a valid section!</mat-error>
+				}
+				}
+				
+			</mat-select>
+		</mat-form-field>
+
+		
+
+		<button mat-raised-button color="primary" class="submit-btn" type="submit">
+			Add ticket type
+		</button>
+	</form>
+</mat-card>

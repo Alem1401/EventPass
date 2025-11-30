@@ -59,5 +59,10 @@ namespace EventPass.Infrastructure.Repositories.Tickets
                 .Include(t => t.Section)
                 .FirstOrDefaultAsync(t => t.Id == ticketType.Id, ct);
         }
+
+        public async Task<bool> HasRelatedTicketsAsync(int ticketTypeId, CancellationToken ct)
+        {
+            return await _context.Tickets.AnyAsync(t => t.TicketTypeID == ticketTypeId, ct);
+        }
     }
 }

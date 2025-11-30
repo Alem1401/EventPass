@@ -18,5 +18,7 @@ namespace EventPass.Domain.Interfaces.Tickets
 
         Task<bool> DeleteTicketTypeAsync(TicketType ticketType, CancellationToken ct);
 
+        public Task<bool> HasRelatedTicketsAsync(int ticketTypeId, CancellationToken ct)
+
     }
 }

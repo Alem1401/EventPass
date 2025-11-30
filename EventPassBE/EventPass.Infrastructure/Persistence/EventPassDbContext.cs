@@ -24,9 +24,69 @@ namespace EventPass.Infrastructure.Persistence
         public EventPassDbContext(DbContextOptions<EventPassDbContext> options)
             : base(options)
         {
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            ChangeTracker.LazyLoadingEnabled = false;
         }
 
-        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                entityType.GetForeignKeys()
+                    .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade)
+                    .ToList()
+                    .ForEach(fk => fk.DeleteBehavior = DeleteBehavior.Restrict);
+            }
+
+            modelBuilder.Entity<Venue>()
+                .Ignore(v => v.Events);
+
+            ConfigureCriticalRelationships(modelBuilder);
+        }
+
+        private void ConfigureCriticalRelationships(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TicketType>(entity =>
+            {
+                entity.HasOne(tt => tt.Section)
+                      .WithMany(s => s.TicketTypes)
+                      .HasForeignKey(tt => tt.SectionID)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(tt => tt.Event)
+                      .WithMany(e => e.TicketTypes)
+                      .HasForeignKey(tt => tt.EventID)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<Ticket>(entity =>
+            {
+                entity.HasOne(t => t.TicketType)
+                      .WithMany(tt => tt.Tickets)
+                      .HasForeignKey(t => t.TicketTypeID)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+            });
+
+            modelBuilder.Entity<Event>(entity =>
+            {
+                entity.HasOne(e => e.Venue)
+                      .WithMany(v => v.Events)
+                      .HasForeignKey(e => e.VenueId)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<Section>(entity =>
+            {
+                entity.HasOne(s => s.Venue)
+                      .WithMany(v => v.Sections)
+                      .HasForeignKey(s => s.VenueID)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+        }
+
         //User
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -69,36 +129,5 @@ namespace EventPass.Infrastructure.Persistence
 
         public DbSet<RefreshToken> RefreshTokens { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Ticket>()
-                .HasOne(t => t.TicketType)
-                .WithMany(tt => tt.Tickets)
-                .HasForeignKey(t => t.TicketTypeID)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            // Ticket → User
-            modelBuilder.Entity<Ticket>()
-                .HasOne(t => t.User)
-                .WithMany(u => u.Tickets)
-                .HasForeignKey(t => t.UserID)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            // OrderItem → Ticket
-            modelBuilder.Entity<OrderItem>()
-                .HasOne(oi => oi.Ticket)
-                .WithMany(t => t.OrderItems)
-                .HasForeignKey(oi => oi.TicketID)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            // CartItem → Ticket
-            modelBuilder.Entity<CartItem>()
-                .HasOne(ci => ci.Ticket)
-                .WithMany(t => t.CartItems)
-                .HasForeignKey(ci => ci.TicketID)
-                .OnDelete(DeleteBehavior.NoAction);
-
-        }
     }
 }

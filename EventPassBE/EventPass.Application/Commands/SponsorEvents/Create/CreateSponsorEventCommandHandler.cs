@@ -31,8 +31,8 @@ namespace EventPass.Application.Commands.SponsorEvents.Create
                 Id = response.Id,
                 tier = response.Tier,
                 amountSponsored = response.AmountSponsored,
-                sponsorId = response.SponsorID,
-                eventId = response.EventID
+                sponsorId = (int)response.SponsorID,
+                eventId = (int)response.EventID
             };
         }
     }

@@ -25,7 +25,7 @@ namespace EventPass.Application.Commands.Sections.Create
             {
                 Capacity = request.Capacity,
                 Name = request.Name,
-                VenueID = request.VenueID
+                VenueID = (int)request.VenueID
             };
 
             var allSections = await _repository.GetSectionsByVenueAsync(request.VenueID,cancellationToken);

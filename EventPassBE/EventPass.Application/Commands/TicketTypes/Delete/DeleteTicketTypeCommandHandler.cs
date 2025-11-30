@@ -22,7 +22,14 @@ namespace EventPass.Application.Commands.TicketTypes.Delete
             var ticketType = await _ticketTypeRepository.GetTicketTypeByIdAsync(request.Id, cancellationToken);
             if (ticketType == null)
             {
-                throw new InvalidOperationException("Ticket type not found.");
+                return false;
+            }
+
+            
+            var hasTickets = await _ticketTypeRepository.HasRelatedTicketsAsync(request.Id, cancellationToken);
+            if (hasTickets)
+            {
+                return false;
             }
 
             await _ticketTypeRepository.DeleteTicketTypeAsync(ticketType, cancellationToken);

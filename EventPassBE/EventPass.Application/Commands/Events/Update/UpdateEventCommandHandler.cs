@@ -30,6 +30,7 @@ namespace EventPass.Application.Commands.Events.Update
             existingEvent.PerformerID = request.EventDto.PerformerID;
             existingEvent.CategoryId = request.EventDto.CategoryId;
             existingEvent.OrganizerID = request.EventDto.OrganizerID;
+            existingEvent.VenueId = request.EventDto.VenueId;
 
             var updatedEvent = await _eventRepository.UpdateAsync(existingEvent, cancellationToken);
 
@@ -43,12 +44,13 @@ namespace EventPass.Application.Commands.Events.Update
                 EndDate = updatedEvent.EndDate,
                 Duration = updatedEvent.Duration,
                 MinimumAge = updatedEvent.MinimumAge,
-                PerformerID = updatedEvent.PerformerID,
+                PerformerID = (int)updatedEvent.PerformerID,
                 PerformerName = updatedEvent.Performer?.Name,
-                CategoryId = updatedEvent.CategoryId,
+                CategoryId = (int)updatedEvent.CategoryId,
                 CategoryName = updatedEvent.Category?.Name,
-                OrganizerID = updatedEvent.OrganizerID,
-                OrganizerName = updatedEvent.Organizer?.Name
+                OrganizerID = (int)updatedEvent.OrganizerID,
+                OrganizerName = updatedEvent.Organizer?.Name,
+                VenueId = (int)updatedEvent.VenueId
             };
         }
     }

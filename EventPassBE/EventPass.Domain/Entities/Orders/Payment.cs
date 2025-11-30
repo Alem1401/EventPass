@@ -9,8 +9,8 @@ public class Payment
     public string Method { get; set; }
     public bool Status { get; set; }
     public DateTime TransactionDate { get; set; }
-    public int OrderID { get; set; }
-    public Order Order { get; set; }
+    public int? OrderID { get; set; }
+    public Order? Order { get; set; }
 }
 
 }

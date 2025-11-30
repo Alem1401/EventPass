@@ -33,15 +33,15 @@ namespace EventPass.Application.Handlers.Reviews.Update
             existingReview.Rating = request.ReviewDto.Rating;
 
             var updatedReview = await _reviewRepository.UpdateAsync(existingReview, cancellationToken);
-            var performer = await _performerRepository.GetPerformerByIdAsync(updatedReview.PerformerID, cancellationToken);
-            var user = await _userRepository.GetUserByIdAsync(updatedReview.UserID, cancellationToken);
+            var performer = await _performerRepository.GetPerformerByIdAsync((int)updatedReview.PerformerID, cancellationToken);
+            var user = await _userRepository.GetUserByIdAsync((int)updatedReview.UserID, cancellationToken);
 
             return new ResponseReviewDto
             {
                 Id = updatedReview.Id,
                 Rating = updatedReview.Rating,
-                PerformerID = updatedReview.PerformerID,
-                UserID = updatedReview.UserID,
+                PerformerID = (int)updatedReview.PerformerID,
+                UserID = (int)updatedReview.UserID,
                 UserName = user.Name,
                 PerformerName = performer.Name
             };

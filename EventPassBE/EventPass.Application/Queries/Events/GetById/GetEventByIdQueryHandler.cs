@@ -31,12 +31,13 @@ namespace EventPass.Application.Queries.Events.BetById
                 EndDate = @event.EndDate,
                 Duration = @event.Duration,
                 MinimumAge = @event.MinimumAge,
-                PerformerID = @event.PerformerID,
+                PerformerID = (int)@event.PerformerID,
                 PerformerName = @event.Performer?.Name,
-                CategoryId = @event.CategoryId,
+                CategoryId = (int)@event.CategoryId,
                 CategoryName = @event.Category?.Name,
-                OrganizerID = @event.OrganizerID,
-                OrganizerName = @event.Organizer?.Name
+                OrganizerID = (int)@event.OrganizerID,
+                OrganizerName = @event.Organizer?.Name,
+                VenueId = (int)@event.VenueId
             };
         }
     }

@@ -22,8 +22,8 @@ namespace EventPass.Application.Queries.SponsorEvents.GetAll
                 Id = se.Id,
                 tier = se.Tier,
                 amountSponsored = se.AmountSponsored,
-                sponsorId = se.SponsorID,
-                eventId = se.EventID
+                sponsorId = (int)se.SponsorID,
+                eventId = (int)se.EventID
             });
         }
     }

@@ -24,8 +24,8 @@ namespace EventPass.Application.Queries.Tickets.GetByEvent
             return filteredTickets.Select(t => new ResponseTicketDTO
             {
                 Id = t.Id,
-                ticketTypeId = t.TicketTypeID,
-                UserId = t.UserID,
+                ticketTypeId = (int)t.TicketTypeID,
+                UserId = (int)t.UserID,
 
             });
         }

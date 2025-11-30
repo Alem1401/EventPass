@@ -14,8 +14,8 @@ namespace EventPass.Domain.Entities.Users
         public byte[] PasswordHash { get; set; }
         public DateTime RegistrationDate { get; set; }
         public bool IsActive { get; set; }
-        public int RoleID { get; set; }
-        public Role Role { get; set; }
+        public int? RoleID { get; set; }
+        public Role? Role { get; set; }
         public ICollection<Ticket> Tickets { get; set; } = new HashSet<Ticket>();
     }
 }

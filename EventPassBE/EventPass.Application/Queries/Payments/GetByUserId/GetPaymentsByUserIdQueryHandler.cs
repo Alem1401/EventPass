@@ -25,7 +25,7 @@ namespace EventPass.Application.Queries.Payments.GetByUserId
                 method = payment.Method,
                 status = payment.Status,
                 transactionDate = payment.TransactionDate,
-                orderId = payment.OrderID
+                orderId = (int)payment.OrderID
             });
         }
     }

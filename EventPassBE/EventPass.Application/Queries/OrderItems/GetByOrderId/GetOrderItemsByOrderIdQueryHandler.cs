@@ -19,8 +19,8 @@ namespace EventPass.Application.Queries.OrderItems.GetByOrderId
             {
                 Id = oi.Id,
                 priceAtPurchase = oi.PriceAtPurchase,
-                orderID = oi.OrderID,
-                ticketID = oi.TicketID
+                orderID = (int)oi.OrderID,
+                ticketID = (int)oi.TicketID
             });
         }
     }

@@ -19,7 +19,9 @@ namespace EventPass.Application.Queries.Venues.GetAll
             var response = new List<ResponseVenueDto>();
             foreach (var item in venues)
             {
-                response.Add(new ResponseVenueDto { Adress = item.Adress,
+                response.Add(new ResponseVenueDto { 
+                    Id = item.Id,
+                    Adress = item.Adress,
                     Capacity = item.Capacity,
                     City = item.City,
                     Country = item.Country,

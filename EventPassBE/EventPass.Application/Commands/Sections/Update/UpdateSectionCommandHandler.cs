@@ -33,7 +33,7 @@ namespace EventPass.Application.Commands.Sections.Update
                 
                 Name = updatedSection.Name,
                 Capacity = updatedSection.Capacity,
-               Id = updatedSection.Id
+                Id = updatedSection.Id
             };
 
         }

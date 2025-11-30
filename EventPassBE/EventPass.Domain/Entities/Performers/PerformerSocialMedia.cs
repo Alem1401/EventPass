@@ -7,7 +7,7 @@ namespace EventPass.Domain.Entities.Performers
 	{
 		public int Id { get; set; }
 		public string Link { get; set; }
-		public int PerformerID { get; set; }
-		public Performer Performer { get; set; }
+		public int? PerformerID { get; set; }
+		public Performer? Performer { get; set; }
 	}
 }

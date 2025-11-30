@@ -30,10 +30,10 @@ namespace EventPass.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CartId")
+                    b.Property<int?>("CartId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TicketID")
+                    b.Property<int?>("TicketID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -53,7 +53,7 @@ namespace EventPass.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("UserID")
+                    b.Property<int?>("UserID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -100,7 +100,7 @@ namespace EventPass.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -120,14 +120,17 @@ namespace EventPass.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OrganizerID")
+                    b.Property<int?>("OrganizerID")
                         .HasColumnType("int");
 
-                    b.Property<int>("PerformerID")
+                    b.Property<int?>("PerformerID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("VenueId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -136,6 +139,8 @@ namespace EventPass.Infrastructure.Migrations
                     b.HasIndex("OrganizerID");
 
                     b.HasIndex("PerformerID");
+
+                    b.HasIndex("VenueId");
 
                     b.ToTable("Events");
                 });
@@ -148,13 +153,13 @@ namespace EventPass.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("OrderID")
+                    b.Property<int?>("OrderID")
                         .HasColumnType("int");
 
                     b.Property<decimal>("PriceAtPurchase")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("TicketID")
+                    b.Property<int?>("TicketID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -198,7 +203,7 @@ namespace EventPass.Infrastructure.Migrations
                     b.Property<int>("TransactionNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
+                    b.Property<int?>("UserID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -264,7 +269,7 @@ namespace EventPass.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OrderID")
+                    b.Property<int?>("OrderID")
                         .HasColumnType("int");
 
                     b.Property<bool>("Status")
@@ -317,7 +322,7 @@ namespace EventPass.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PerformerID")
+                    b.Property<int?>("PerformerID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -335,13 +340,13 @@ namespace EventPass.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("PerformerID")
+                    b.Property<int?>("PerformerID")
                         .HasColumnType("int");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
+                    b.Property<int?>("UserID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -364,10 +369,10 @@ namespace EventPass.Infrastructure.Migrations
                     b.Property<decimal>("AmountSponsored")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("EventID")
+                    b.Property<int?>("EventID")
                         .HasColumnType("int");
 
-                    b.Property<int>("SponsorID")
+                    b.Property<int?>("SponsorID")
                         .HasColumnType("int");
 
                     b.Property<string>("Tier")
@@ -424,13 +429,13 @@ namespace EventPass.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("EventID")
+                    b.Property<int?>("EventID")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("SectionID")
+                    b.Property<int?>("SectionID")
                         .HasColumnType("int");
 
                     b.Property<int>("TicketsRemaining")
@@ -459,10 +464,10 @@ namespace EventPass.Infrastructure.Migrations
                     b.Property<int>("TicketNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("TicketTypeID")
+                    b.Property<int?>("TicketTypeID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
+                    b.Property<int?>("UserID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -548,7 +553,7 @@ namespace EventPass.Infrastructure.Migrations
                     b.Property<DateTime>("RegistrationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("RoleID")
+                    b.Property<int?>("RoleID")
                         .HasColumnType("int");
 
                     b.Property<string>("Surname")
@@ -594,7 +599,7 @@ namespace EventPass.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("VenueID")
+                    b.Property<int?>("VenueID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -634,7 +639,7 @@ namespace EventPass.Infrastructure.Migrations
                     b.Property<int>("PostalCode")
                         .HasColumnType("int");
 
-                    b.Property<int>("VenueTypeID")
+                    b.Property<int?>("VenueTypeID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -648,15 +653,11 @@ namespace EventPass.Infrastructure.Migrations
                 {
                     b.HasOne("EventPass.Domain.Entities.Carts.Cart", "Cart")
                         .WithMany()
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CartId");
 
                     b.HasOne("EventPass.Domain.Entities.Tickets.Ticket", "Ticket")
                         .WithMany("CartItems")
-                        .HasForeignKey("TicketID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .HasForeignKey("TicketID");
 
                     b.Navigation("Cart");
 
@@ -667,9 +668,7 @@ namespace EventPass.Infrastructure.Migrations
                 {
                     b.HasOne("EventPass.Domain.Entities.Users.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserID");
 
                     b.Navigation("User");
                 });
@@ -678,42 +677,39 @@ namespace EventPass.Infrastructure.Migrations
                 {
                     b.HasOne("EventPass.Domain.Entities.EventCategories.EventCategory", "Category")
                         .WithMany("Events")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.HasOne("EventPass.Domain.Entities.Organizers.Organizer", "Organizer")
                         .WithMany("Events")
-                        .HasForeignKey("OrganizerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrganizerID");
 
                     b.HasOne("EventPass.Domain.Entities.Performers.Performer", "Performer")
                         .WithMany()
-                        .HasForeignKey("PerformerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PerformerID");
+
+                    b.HasOne("EventPass.Domain.Entities.Venues.Venue", "Venue")
+                        .WithMany("Events")
+                        .HasForeignKey("VenueId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Category");
 
                     b.Navigation("Organizer");
 
                     b.Navigation("Performer");
+
+                    b.Navigation("Venue");
                 });
 
             modelBuilder.Entity("EventPass.Domain.Entities.OrderItems.OrderItem", b =>
                 {
                     b.HasOne("EventPass.Domain.Entities.Orders.Order", "Order")
                         .WithMany("Items")
-                        .HasForeignKey("OrderID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderID");
 
                     b.HasOne("EventPass.Domain.Entities.Tickets.Ticket", "Ticket")
                         .WithMany("OrderItems")
-                        .HasForeignKey("TicketID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .HasForeignKey("TicketID");
 
                     b.Navigation("Order");
 
@@ -724,9 +720,7 @@ namespace EventPass.Infrastructure.Migrations
                 {
                     b.HasOne("EventPass.Domain.Entities.Users.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserID");
 
                     b.Navigation("User");
                 });
@@ -735,9 +729,7 @@ namespace EventPass.Infrastructure.Migrations
                 {
                     b.HasOne("EventPass.Domain.Entities.Orders.Order", "Order")
                         .WithMany()
-                        .HasForeignKey("OrderID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderID");
 
                     b.Navigation("Order");
                 });
@@ -746,9 +738,7 @@ namespace EventPass.Infrastructure.Migrations
                 {
                     b.HasOne("EventPass.Domain.Entities.Performers.Performer", "Performer")
                         .WithMany("SocialMedia")
-                        .HasForeignKey("PerformerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PerformerID");
 
                     b.Navigation("Performer");
                 });
@@ -757,15 +747,11 @@ namespace EventPass.Infrastructure.Migrations
                 {
                     b.HasOne("EventPass.Domain.Entities.Performers.Performer", "Performer")
                         .WithMany("Reviews")
-                        .HasForeignKey("PerformerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PerformerID");
 
                     b.HasOne("EventPass.Domain.Entities.Users.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserID");
 
                     b.Navigation("Performer");
 
@@ -776,15 +762,11 @@ namespace EventPass.Infrastructure.Migrations
                 {
                     b.HasOne("EventPass.Domain.Entities.Events.Event", "Event")
                         .WithMany("Sponsors")
-                        .HasForeignKey("EventID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EventID");
 
                     b.HasOne("EventPass.Domain.Entities.Sponsors.Sponsor", "Sponsor")
                         .WithMany("Events")
-                        .HasForeignKey("SponsorID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SponsorID");
 
                     b.Navigation("Event");
 
@@ -794,16 +776,14 @@ namespace EventPass.Infrastructure.Migrations
             modelBuilder.Entity("EventPass.Domain.Entities.TicketTypes.TicketType", b =>
                 {
                     b.HasOne("EventPass.Domain.Entities.Events.Event", "Event")
-                        .WithMany()
+                        .WithMany("TicketTypes")
                         .HasForeignKey("EventID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("EventPass.Domain.Entities.Venues.Section", "Section")
                         .WithMany("TicketTypes")
                         .HasForeignKey("SectionID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Event");
 
@@ -815,14 +795,11 @@ namespace EventPass.Infrastructure.Migrations
                     b.HasOne("EventPass.Domain.Entities.TicketTypes.TicketType", "TicketType")
                         .WithMany("Tickets")
                         .HasForeignKey("TicketTypeID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("EventPass.Domain.Entities.Users.User", "User")
                         .WithMany("Tickets")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .HasForeignKey("UserID");
 
                     b.Navigation("TicketType");
 
@@ -833,9 +810,7 @@ namespace EventPass.Infrastructure.Migrations
                 {
                     b.HasOne("EventPass.Domain.Entities.Users.Role", "Role")
                         .WithMany()
-                        .HasForeignKey("RoleID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoleID");
 
                     b.Navigation("Role");
                 });
@@ -845,8 +820,7 @@ namespace EventPass.Infrastructure.Migrations
                     b.HasOne("EventPass.Domain.Entities.Venues.Venue", "Venue")
                         .WithMany("Sections")
                         .HasForeignKey("VenueID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Venue");
                 });
@@ -855,9 +829,7 @@ namespace EventPass.Infrastructure.Migrations
                 {
                     b.HasOne("EventPass.Domain.Entities.VenueTypes.VenueType", "VenueType")
                         .WithMany("Venues")
-                        .HasForeignKey("VenueTypeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("VenueTypeID");
 
                     b.Navigation("VenueType");
                 });
@@ -870,6 +842,8 @@ namespace EventPass.Infrastructure.Migrations
             modelBuilder.Entity("EventPass.Domain.Entities.Events.Event", b =>
                 {
                     b.Navigation("Sponsors");
+
+                    b.Navigation("TicketTypes");
                 });
 
             modelBuilder.Entity("EventPass.Domain.Entities.Orders.Order", b =>
@@ -923,6 +897,8 @@ namespace EventPass.Infrastructure.Migrations
 
             modelBuilder.Entity("EventPass.Domain.Entities.Venues.Venue", b =>
                 {
+                    b.Navigation("Events");
+
                     b.Navigation("Sections");
                 });
 #pragma warning restore 612, 618

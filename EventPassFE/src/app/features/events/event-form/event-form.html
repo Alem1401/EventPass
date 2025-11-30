@@ -37,7 +37,7 @@
         <div class="form-row">
           <mat-form-field appearance="outline">
             <mat-label>Start Date & Time</mat-label>
-            <input matInput [matDatepicker]="startPicker" formControlName="startDate">
+            <input matInput [matDatepicker]="startPicker" formControlName="startDate" readonly>
             <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
             <mat-datepicker #startPicker></mat-datepicker>
             <mat-error>{{ getErrorMessage('startDate') }}</mat-error>
@@ -45,7 +45,7 @@
 
           <mat-form-field appearance="outline">
             <mat-label>End Date & Time</mat-label>
-            <input matInput [matDatepicker]="endPicker" formControlName="endDate">
+            <input matInput [matDatepicker]="endPicker" formControlName="endDate" readonly>
             <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
             <mat-datepicker #endPicker></mat-datepicker>
             <mat-error>{{ getErrorMessage('endDate') }}</mat-error>
@@ -98,6 +98,18 @@
             <mat-error>{{ getErrorMessage('organizerID') }}</mat-error>
           </mat-form-field>
 
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Venue</mat-label>
+            <mat-select formControlName="venueID">
+              <mat-option *ngFor="let v of venues" [value]="v.id">
+                {{ v.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ getErrorMessage('venueID') }}</mat-error>
+          </mat-form-field>
         </div>
       </form>
     </mat-card-content>

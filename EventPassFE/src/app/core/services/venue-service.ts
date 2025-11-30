@@ -30,7 +30,7 @@ export class VenueService {
   }
 
   getAllVenues(){
-    return this.http.get("https://localhost:7231/api/Venue");
+    return this.http.get<VenueResponseDto[]>("https://localhost:7231/api/Venue");
   }
 
   addSectiontoVenue(section : createSectionDto){

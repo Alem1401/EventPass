@@ -28,8 +28,9 @@ namespace EventPass.Application.Commands.Events.Create
                 MinimumAge = request.EventDto.MinimumAge,
                 PerformerID = request.EventDto.PerformerID,
                 CategoryId = request.EventDto.CategoryId,
-                OrganizerID = request.EventDto.OrganizerID
-    };
+                OrganizerID = request.EventDto.OrganizerID,
+                VenueId = request.EventDto.VenueId
+            };
 
     var createdEvent = await _eventRepository.AddAsync(@event, cancellationToken);
 
@@ -43,10 +44,11 @@ namespace EventPass.Application.Commands.Events.Create
                 EndDate = createdEvent.EndDate,
                 Duration = createdEvent.Duration,
                 MinimumAge = createdEvent.MinimumAge,
-                PerformerID = createdEvent.PerformerID,
-                CategoryId = createdEvent.CategoryId,
-                OrganizerID = createdEvent.OrganizerID
-};
+                PerformerID = (int)createdEvent.PerformerID,
+                CategoryId = (int)createdEvent.CategoryId,
+                OrganizerID = (int)createdEvent.OrganizerID,
+                VenueId = (int)createdEvent.VenueId
+            };
         }
     }
 }

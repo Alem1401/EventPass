@@ -26,8 +26,8 @@ namespace EventPass.Application.Commands.CartItems.Create
             return new ResponseCartItemDto
             {
                 Id = response.Id,
-                cartId = response.CartId,
-                ticketId = response.TicketID
+                cartId = (int)response.CartId,
+                ticketId = (int)response.TicketID
             };
         }
     }

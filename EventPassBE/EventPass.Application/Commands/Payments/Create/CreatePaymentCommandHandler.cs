@@ -30,7 +30,7 @@ namespace EventPass.Application.Commands.Payments.Create
                 method = response.Method,
                 status = response.Status,
                 transactionDate = response.TransactionDate,
-                orderId = response.OrderID
+                orderId = (int)response.OrderID
             };
         }
     }

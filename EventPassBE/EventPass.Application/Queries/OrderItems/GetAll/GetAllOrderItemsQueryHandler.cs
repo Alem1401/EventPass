@@ -20,8 +20,8 @@ namespace EventPass.Application.Queries.OrderItems.GetAll
             {
                 Id = o.Id,
                 priceAtPurchase = o.PriceAtPurchase,
-                orderID = o.OrderID,
-                ticketID = o.TicketID
+                orderID = (int)o.OrderID,
+                ticketID = (int)o.TicketID
             });
         }
     }

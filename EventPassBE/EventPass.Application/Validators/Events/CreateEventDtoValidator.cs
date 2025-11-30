@@ -42,6 +42,9 @@ namespace EventPass.Application.Validators.Events
 
             RuleFor(x => x.OrganizerID)
                 .GreaterThan(0).WithMessage("Organizer ID must be valid");
+
+            RuleFor(x => x.VenueId)
+                .GreaterThan(0).WithMessage("Venue ID must be valid");
         }
     }
 }

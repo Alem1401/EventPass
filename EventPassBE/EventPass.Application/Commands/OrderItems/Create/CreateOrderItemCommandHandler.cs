@@ -22,7 +22,7 @@ namespace EventPass.Application.Commands.OrderItems.Create
         public async Task<ResponseOrderItemDto> Handle(CreateOrderItemCommand command, CancellationToken cancellationToken)
         {
             var ticket = await _ticketRepository.GetTicketByIdAsync(command.dto.ticketID, cancellationToken);
-            var ticketType = await _ticketTypeRepository.GetTicketTypeByIdAsync(ticket.TicketTypeID, cancellationToken);
+            var ticketType = await _ticketTypeRepository.GetTicketTypeByIdAsync((int)ticket.TicketTypeID, cancellationToken);
             var newOrderItem = new OrderItem
             {
                 PriceAtPurchase = ticketType.Price,
@@ -35,8 +35,8 @@ namespace EventPass.Application.Commands.OrderItems.Create
             {
                 Id = response.Id,
                 priceAtPurchase = response.PriceAtPurchase,
-                orderID = response.OrderID,
-                ticketID = response.TicketID
+                orderID = (int)response.OrderID,
+                ticketID = (int)response.TicketID
             };
         }
     }

@@ -13,6 +13,8 @@ export interface Event {
   categoryName: string;
   organizerID: number;
   organizerName: string;
+  venueId: number;
+  venueName: string;
 }
 
 export interface EventCreate {
@@ -26,6 +28,7 @@ export interface EventCreate {
   performerID: number;
   categoryId: number;
   organizerID: number;
+  venueID: number;
 }
 
 export interface EventUpdate {
@@ -39,4 +42,5 @@ export interface EventUpdate {
   performerID: number;
   categoryId: number;
   organizerID: number;
+  venueID: number;
 }

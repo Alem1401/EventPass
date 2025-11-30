@@ -47,8 +47,8 @@ namespace EventPass.Application.Handlers.Reviews.Create
             {
                 Id = createdReview.Id,
                 Rating = createdReview.Rating,
-                PerformerID = createdReview.PerformerID,
-                UserID = createdReview.UserID,
+                PerformerID = (int)createdReview.PerformerID,
+                UserID = (int)createdReview.UserID,
                 UserName = user.Name,
                 PerformerName = performer.Name
             };

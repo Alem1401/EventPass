@@ -28,8 +28,8 @@ namespace EventPass.Application.Commands.Tickets.Create
             {
                 Id = addedTicket.Id,
                 ticketNumber = addedTicket.TicketNumber,
-                UserId = addedTicket.UserID,
-                ticketTypeId = addedTicket.TicketTypeID
+                UserId = (int)addedTicket.UserID,
+                ticketTypeId = (int)addedTicket.TicketTypeID
             };
         }
     }

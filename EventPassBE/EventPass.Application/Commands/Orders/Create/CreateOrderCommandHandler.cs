@@ -40,7 +40,7 @@ namespace EventPass.Application.Commands.Orders.Create
                 BillingAdress = createdOrder.BillingAdress,
                 ShippingAdress = createdOrder.ShippingAdress,
                 TransactionNumber = createdOrder.TransactionNumber,
-                UserId = createdOrder.UserID
+                UserId = (int)createdOrder.UserID
             };
         }
     }

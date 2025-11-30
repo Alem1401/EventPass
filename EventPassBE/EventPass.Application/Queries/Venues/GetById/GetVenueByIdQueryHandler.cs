@@ -24,6 +24,7 @@ namespace EventPass.Application.Queries.Venues.GetById
             else {
             var response = new ResponseVenueDto()
             {
+                Id = venue.Id,
                 Name = venue.Name,
                 Adress = venue.Adress,
                 City = venue.City,

@@ -23,7 +23,7 @@ namespace EventPass.Application.Queries.Payments.GetAll
                 method = payment.Method,
                 status = payment.Status,
                 transactionDate = payment.TransactionDate,
-                orderId = payment.OrderID
+                orderId = (int)payment.OrderID
             });
         }
     }

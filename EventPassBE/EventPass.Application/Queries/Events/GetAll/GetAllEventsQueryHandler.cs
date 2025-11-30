@@ -27,12 +27,13 @@ namespace EventPass.Application.Queries.Events.GetAll
                 EndDate = e.EndDate,
                 Duration = e.Duration,
                 MinimumAge = e.MinimumAge,
-                PerformerID = e.PerformerID,
+                PerformerID = (int)e.PerformerID,
                 PerformerName = e.Performer?.Name,
-                CategoryId = e.CategoryId,
+                CategoryId = (int)e.CategoryId,
                 CategoryName = e.Category?.Name,
-                OrganizerID = e.OrganizerID,
-                OrganizerName = e.Organizer?.Name
+                OrganizerID = (int)e.OrganizerID,
+                OrganizerName = e.Organizer?.Name,
+                VenueId = (int)e.VenueId
             });
         }
     }

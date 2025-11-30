@@ -1,5 +1,7 @@
 using EventPass.Application;
 using EventPass.Infrastructure;
+using EventPass.Infrastructure.Persistence;
+using EventPass.Infrastructure.Persistence.Seeder;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
@@ -78,6 +80,13 @@ builder.Services.AddAuthentication(options =>
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<EventPassDbContext>();
+    await DataSeed.SeedAsync(context); 
+}
+
 app.UseCors("AllowAngular");
 
 app.UseExceptionHandler(errorApp =>

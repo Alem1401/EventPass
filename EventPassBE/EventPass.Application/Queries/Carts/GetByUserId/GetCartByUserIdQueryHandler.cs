@@ -20,7 +20,7 @@ namespace EventPass.Application.Queries.Carts.GetByUserId
             return new ResponseCartDto
             {
                 Id = cart.Id,
-                userId = cart.UserID
+                userId = (int)cart.UserID
             };
         }
     }

@@ -1,0 +1,56 @@
+.container {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.table-container {
+  position: relative;
+  min-height: 200px;
+}
+
+.tickettype-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tickettype-table thead th {
+  text-align: left;
+  padding: 12px 8px;
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+}
+
+.tickettype-table tbody td {
+  padding: 10px 8px;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.no-data {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+.no-data mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+}

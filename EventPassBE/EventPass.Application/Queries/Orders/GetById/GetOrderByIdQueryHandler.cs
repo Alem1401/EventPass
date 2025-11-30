@@ -26,7 +26,7 @@ namespace EventPass.Application.Queries.Orders.GetById
                 BillingAdress = order.BillingAdress,
                 ShippingAdress = order.ShippingAdress,
                 TransactionNumber = order.TransactionNumber,
-                UserId = order.UserID
+                UserId = (int)order.UserID
             };
         }
     }

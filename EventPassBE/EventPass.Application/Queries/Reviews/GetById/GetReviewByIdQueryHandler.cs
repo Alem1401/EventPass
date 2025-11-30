@@ -25,8 +25,8 @@ namespace EventPass.Application.Handlers.Reviews.GetById
             {
                 Id = review.Id,
                 Rating = review.Rating,
-                PerformerID = review.PerformerID,
-                UserID = review.UserID,
+                PerformerID = (int)review.PerformerID,
+                UserID = (int)review.UserID,
                 UserName = review.User.Name,
                 PerformerName = review.Performer.Name
             };

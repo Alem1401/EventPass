@@ -23,8 +23,8 @@ namespace EventPass.Application.Queries.Tickets.GetAll
             return tickets.Select(t => new ResponseTicketDTO
             {
                 Id = t.Id,
-                ticketTypeId = t.TicketTypeID,
-                UserId = t.UserID,
+                ticketTypeId = (int)t.TicketTypeID,
+                UserId = (int)t.UserID,
 
             });
         }

@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="header">
+    <h1>Ticket Types</h1>
+    <button mat-raised-button color="primary" (click)="AddNewTicketType()" [disabled]="!event">
+      <mat-icon>add</mat-icon>
+      Create Ticket Type
+    </button>
+  </div>
+
+
+
+  <div class="table-container">
+    <table class="mat-elevation-z8 tickettype-table">
+      <thead>
+        <tr>
+          <th>Price</th>
+          <th>Remaining</th>
+          <th>Section</th>
+          <th>Event</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ticketType of ticketTypes; let i = index">
+          <td>{{ ticketType.price | currency }}</td>
+          <td>{{ ticketType.ticketsRemaining }}</td>
+          <td>{{ ticketType.sectionName }}</td>
+          <td>{{ ticketType.eventName }}</td>
+          <td>
+            <button mat-icon-button color="primary">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteTicketType(ticketType.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="loading-spinner" style="display:none;">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <div class="no-data" style="display:none;">
+      <mat-icon>event_busy</mat-icon>
+      <p>No ticket types found</p>
+    </div>
+  </div>
+</div>

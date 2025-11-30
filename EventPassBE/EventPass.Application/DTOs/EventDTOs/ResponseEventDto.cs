@@ -22,5 +22,7 @@ namespace EventPass.Application.DTOs.EventDTOs
         public string CategoryName { get; set; }
         public int OrganizerID { get; set; }
         public string OrganizerName { get; set; }
+        public int VenueId { get; set; }
+        public string VenueName { get; set; }
     }
 }

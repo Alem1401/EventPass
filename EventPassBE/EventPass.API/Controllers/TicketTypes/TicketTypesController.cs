@@ -68,11 +68,25 @@ namespace EventPass.API.Controllers.TicketTypes
 
         [HttpDelete("{id}")]
 
-        public async Task<ActionResult<bool>> delete(int id,CancellationToken ct)
+        public async Task<ActionResult> Delete(int id, CancellationToken ct)
         {
-            var result =await _mediatr.Send(new DeleteTicketTypeCommand { Id = id },ct);
-            if (!result) return NotFound();
-            else return NoContent();
+            try
+            {
+                var result = await _mediatr.Send(new DeleteTicketTypeCommand { Id = id }, ct);
+                return result ? NoContent() : NotFound();
+            }
+            catch (InvalidOperationException)
+            {
+                return NotFound($"Ticket type with ID {id} not found.");
+            }
+        }
+
+        [HttpGet("ByEvent/{id}")]
+
+        public async Task<ActionResult<IEnumerable<ResponseTicketTypeDTO>>> GetByEvent(int id, CancellationToken ct)
+        {
+            var result = await _mediatr.Send(new Application.Queries.TicketTypes.GetTicketTypeByEventQuery.GetTicketTypesByEventQuery { Id = id }, ct);
+            return Ok(result);
         }
     }
 }

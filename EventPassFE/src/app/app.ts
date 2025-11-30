@@ -9,6 +9,7 @@ import { EventListComponent } from './features/events/event-list/event-list';
 import { SponsorFormComponent } from './features/sponsors/sponsor-form/sponsor-form';
 import { VenueForm } from "./features/venues/venue-form/venue-form";
 
+
 @Component({
   selector: 'app-root',
   imports: [
@@ -20,7 +21,8 @@ import { VenueForm } from "./features/venues/venue-form/venue-form";
     EventFormComponent,
     EventListComponent,
     SponsorFormComponent,
-    VenueForm
+    VenueForm,
+  
 ],
   templateUrl: './app.html',
   styleUrl: './app.css'

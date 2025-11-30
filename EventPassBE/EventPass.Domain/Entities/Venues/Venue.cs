@@ -1,4 +1,5 @@
-﻿using EventPass.Domain.Entities.VenueTypes;
+﻿using EventPass.Domain.Entities.Events;
+using EventPass.Domain.Entities.VenueTypes;
 
 namespace EventPass.Domain.Entities.Venues
 {
@@ -11,8 +12,9 @@ namespace EventPass.Domain.Entities.Venues
         public string Country { get; set; }
         public int PostalCode { get; set; }
         public int Capacity { get; set; }
-        public int VenueTypeID { get; set; }
-        public VenueType VenueType { get; set; }
+        public int? VenueTypeID { get; set; }
+        public VenueType? VenueType { get; set; }
         public ICollection<Section> Sections { get; set; } = new HashSet<Section>();
+        public ICollection<Event> Events { get; set; } = new HashSet<Event>();
     }
 }

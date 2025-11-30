@@ -21,8 +21,8 @@ namespace EventPass.Application.Queries.CartItems.GetByCartId
             return items.Select(i => new ResponseCartItemDto
             {
                 Id = i.Id,
-                cartId = i.CartId,
-                ticketId = i.TicketID
+                cartId = (int)i.CartId,
+                ticketId = (int)i.TicketID
             });
         }
     }
