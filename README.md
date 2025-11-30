@@ -1,4 +1,4 @@
-EventPass
+
 EventPass is a modern web application for discovering events, browsing details, and purchasing tickets. The platform features a comprehensive administrative panel for managing all aspects of the event ecosystem.
 
 🚀 Tech Stack
