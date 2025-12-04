@@ -1,0 +1,179 @@
+<div class="admin-container">
+  <!-- Left Sidebar Navigation -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <mat-icon class="sidebar-logo">admin_panel_settings</mat-icon>
+      <h2 class="sidebar-title">Admin Panel</h2>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <nav class="sidebar-nav">
+      <h3 class="nav-section-title">
+        <mat-icon>dashboard</mat-icon>
+        Dashboard
+      </h3>
+      
+      <a mat-button class="nav-item" routerLink="/events" routerLinkActive="active">
+        <mat-icon>analytics</mat-icon>
+        <span>Overview</span>
+      </a>
+
+      <mat-divider class="section-divider"></mat-divider>
+
+      <h3 class="nav-section-title">
+        <mat-icon>event</mat-icon>
+        Events
+      </h3>
+      
+      <a mat-button class="nav-item" routerLink="/events" routerLinkActive="active">
+        <mat-icon>event</mat-icon>
+        <span>All Events</span>
+      </a>
+
+      <a mat-button class="nav-item" routerLink="/events/create" routerLinkActive="active">
+        <mat-icon>add_circle</mat-icon>
+        <span>Create Event</span>
+      </a>
+
+      <mat-divider class="section-divider"></mat-divider>
+
+      <h3 class="nav-section-title">
+        <mat-icon>place</mat-icon>
+        Venues
+      </h3>
+      
+      <a mat-button class="nav-item" routerLink="/venues/create" routerLinkActive="active">
+        <mat-icon>place</mat-icon>
+        <span>All Venues</span>
+      </a>
+
+      <a mat-button class="nav-item" routerLink="/venues/create" routerLinkActive="active">
+        <mat-icon>add_location</mat-icon>
+        <span>Create Venue</span>
+      </a>
+
+      <mat-divider class="section-divider"></mat-divider>
+
+      <h3 class="nav-section-title">
+        <mat-icon>person</mat-icon>
+        Performers
+      </h3>
+      
+      <a mat-button class="nav-item" routerLink="/performers" routerLinkActive="active">
+        <mat-icon>people</mat-icon>
+        <span>All Performers</span>
+      </a>
+
+      <a mat-button class="nav-item" routerLink="/performers/create" routerLinkActive="active">
+        <mat-icon>person_add</mat-icon>
+        <span>Add Performer</span>
+      </a>
+
+      <mat-divider class="section-divider"></mat-divider>
+
+      <h3 class="nav-section-title">
+        <mat-icon>business</mat-icon>
+        Sponsors
+      </h3>
+      
+      <a mat-button class="nav-item" routerLink="/sponsors" routerLinkActive="active">
+        <mat-icon>business_center</mat-icon>
+        <span>All Sponsors</span>
+      </a>
+
+      <a mat-button class="nav-item" routerLink="/sponsors/create" routerLinkActive="active">
+        <mat-icon>add_business</mat-icon>
+        <span>Add Sponsor</span>
+      </a>
+
+      <mat-divider class="section-divider"></mat-divider>
+
+      <h3 class="nav-section-title">
+        <mat-icon>confirmation_number</mat-icon>
+        Tickets
+      </h3>
+      
+      <a mat-button class="nav-item" routerLink="/events" routerLinkActive="active">
+        <mat-icon>local_activity</mat-icon>
+        <span>All Tickets</span>
+      </a>
+
+      <a mat-button class="nav-item" routerLink="/events" routerLinkActive="active">
+        <mat-icon>point_of_sale</mat-icon>
+        <span>Sales Report</span>
+      </a>
+
+      <mat-divider class="section-divider"></mat-divider>
+
+      <h3 class="nav-section-title">
+        <mat-icon>settings</mat-icon>
+        Settings
+      </h3>
+      
+      <a mat-button class="nav-item" routerLink="/events" routerLinkActive="active">
+        <mat-icon>tune</mat-icon>
+        <span>Preferences</span>
+      </a>
+
+      <a mat-button class="nav-item" routerLink="/events" routerLinkActive="active">
+        <mat-icon>manage_accounts</mat-icon>
+        <span>User Management</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <mat-divider></mat-divider>
+      <button mat-button class="logout-button">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Right Content Area -->
+  <main class="admin-content">
+    <div class="content-header">
+      <div class="breadcrumb">
+        <mat-icon>home</mat-icon>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current">Admin Dashboard</span>
+      </div>
+      
+      <div class="header-actions">
+        <button mat-icon-button matTooltip="Notifications">
+          <mat-icon matBadge="3" matBadgeColor="warn">notifications</mat-icon>
+        </button>
+        
+        <button mat-icon-button matTooltip="Settings">
+          <mat-icon>settings</mat-icon>
+        </button>
+        
+        <button mat-icon-button [matMenuTriggerFor]="userMenu" matTooltip="Profile">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>person</mat-icon>
+            <span>Profile</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>settings</mat-icon>
+            <span>Settings</span>
+          </button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item>
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <div class="content-body">
+      <!-- Content will be loaded here via router-outlet or component selector -->
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

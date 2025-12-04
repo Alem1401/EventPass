@@ -10,8 +10,11 @@ import { MatInputModule } from '@angular/material/input';
 import { ResponseTicketTypeDto } from '../../../core/dtos/tickettype/ResponseTicketTypeDto';
 import { TickettypeService } from '../../../core/services/tickettype-service';
 import { EventService } from '../../../core/services/event-service';
-import { Event } from '../../../core/models/event.model';
+import { ResponseEventDto } from '../../../core/models/event.model';
 import { HttpClient } from '@angular/common/http';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: 'app-tickettype-list',
   standalone: true,
@@ -24,6 +27,9 @@ import { HttpClient } from '@angular/common/http';
     MatProgressSpinnerModule,
     MatFormFieldModule,
     MatInputModule,
+    MatCardModule,
+    MatChipsModule,
+    MatTooltipModule
   ],
   templateUrl: './tickettype-list.html',
   styleUrls: ['./tickettype-list.css'],
@@ -35,7 +41,9 @@ export class TickettypeListComponent implements OnInit {
   ticketTypes: ResponseTicketTypeDto[] = [];
   ticketTypeService = inject(TickettypeService);
   eventService = inject(EventService);
-  event : Event | null = null;
+  event : ResponseEventDto | null = null;
+  displayedColumns = ['price', 'remaining', 'section', 'event', 'actions'];
+  loading = false;
  
 AddNewTicketType(){
   console.log("ovo je venueid prije slanja " + this.event?.venueId)

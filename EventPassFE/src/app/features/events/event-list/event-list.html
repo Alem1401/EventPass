@@ -1,74 +1,139 @@
-<div class="container">
-  <div class="header">
-    <h1>Events</h1>
-    <button mat-raised-button color="primary" routerLink="/events/create">
-      <mat-icon>add</mat-icon>
-      Create Event
-    </button>
-  </div>
+<div class="list-container">
+  <mat-card class="enterprise-list-card" elevation="3">
+    <mat-card-header class="list-card-header">
+      <div class="header-content">
+        <div class="header-left">
+          <mat-icon class="header-icon">event</mat-icon>
+          <div>
+            <mat-card-title class="list-card-title">Events Management</mat-card-title>
+            <mat-card-subtitle class="list-card-subtitle">View and manage all events</mat-card-subtitle>
+          </div>
+        </div>
+        <button mat-raised-button color="primary" routerLink="/events/create" class="create-button">
+          <mat-icon>add</mat-icon>
+          Create Event
+        </button>
+      </div>
+    </mat-card-header>
 
-  <mat-form-field appearance="outline" class="search-field">
-    <mat-label>Search Events</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Search by name">
-    <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field>
+    <mat-card-content class="list-card-content">
+      <div class="search-section">
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-label>Search Events</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Search by name, category, or organizer">
+          <mat-icon matPrefix class="search-icon">search</mat-icon>
+        </mat-form-field>
+      </div>
 
-  <div class="table-container">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-      
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
-        <td mat-cell *matCellDef="let event">{{ event.name }}</td>
-      </ng-container>
+      <div class="table-wrapper">
+        <table mat-table [dataSource]="dataSource" class="enterprise-table">
+          
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">
+                <mat-icon class="column-icon">title</mat-icon>
+                Event Name
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let event" class="name-cell">
+              <span class="event-name">{{ event.name }}</span>
+            </td>
+          </ng-container>
 
-      
-      <ng-container matColumnDef="startDate">
-        <th mat-header-cell *matHeaderCellDef>Start Date</th>
-        <td mat-cell *matCellDef="let event">{{ event.startDate | date:'medium' }}</td>
-      </ng-container>
+          <ng-container matColumnDef="startDate">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">
+                <mat-icon class="column-icon">schedule</mat-icon>
+                Start Date
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let event">
+              <div class="date-cell">
+                <mat-icon class="date-icon">calendar_today</mat-icon>
+                {{ event.startDate | date:'medium' }}
+              </div>
+            </td>
+          </ng-container>
 
-      
-      <ng-container matColumnDef="endDate">
-        <th mat-header-cell *matHeaderCellDef>End Date</th>
-        <td mat-cell *matCellDef="let event">{{ event.endDate | date:'medium' }}</td>
-      </ng-container>
+          <ng-container matColumnDef="endDate">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">
+                <mat-icon class="column-icon">event_available</mat-icon>
+                End Date
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let event">
+              <div class="date-cell">
+                <mat-icon class="date-icon">calendar_today</mat-icon>
+                {{ event.endDate | date:'medium' }}
+              </div>
+            </td>
+          </ng-container>
 
-      
-      <ng-container matColumnDef="category">
-        <th mat-header-cell *matHeaderCellDef>Category</th>
-        <td mat-cell *matCellDef="let event">{{ event.categoryName }}</td>
-      </ng-container>
+          <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">
+                <mat-icon class="column-icon">category</mat-icon>
+                Category
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let event">
+              <mat-chip class="category-chip">{{ event.categoryName }}</mat-chip>
+            </td>
+          </ng-container>
 
-     
-      <ng-container matColumnDef="organizer">
-        <th mat-header-cell *matHeaderCellDef>Organizer</th>
-        <td mat-cell *matCellDef="let event">{{ event.organizerName }}</td>
-      </ng-container>
+          <ng-container matColumnDef="organizer">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">
+                <mat-icon class="column-icon">business</mat-icon>
+                Organizer
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let event">
+              <div class="organizer-cell">
+                <mat-icon class="organizer-icon">business_center</mat-icon>
+                {{ event.organizerName }}
+              </div>
+            </td>
+          </ng-container>
 
-     
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
-        <td mat-cell *matCellDef="let event">
-          <button mat-icon-button color="primary" [routerLink]="['/events/edit', event.id]">
-            <mat-icon>edit</mat-icon>
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">Actions</div>
+            </th>
+            <td mat-cell *matCellDef="let event">
+              <div class="action-buttons">
+                <button mat-icon-button color="primary" [routerLink]="['/events/edit', event.id]"
+                        matTooltip="Edit Event">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteEvent(event.id)"
+                        matTooltip="Delete Event">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+        </table>
+
+        <div *ngIf="isLoading" class="loading-state">
+          <mat-spinner diameter="60"></mat-spinner>
+          <p class="loading-text">Loading events...</p>
+        </div>
+
+        <div *ngIf="dataSource.data.length === 0 && !isLoading" class="empty-state">
+          <mat-icon class="empty-icon">event_busy</mat-icon>
+          <h3 class="empty-title">No Events Found</h3>
+          <p class="empty-text">Get started by creating your first event</p>
+          <button mat-raised-button color="primary" routerLink="/events/create">
+            <mat-icon>add</mat-icon>
+            Create Event
           </button>
-          <button mat-icon-button color="warn" (click)="deleteEvent(event.id)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
-    <div *ngIf="isLoading" class="loading-spinner">
-      <mat-spinner></mat-spinner>
-    </div>
-
-    <div *ngIf="dataSource.data.length === 0 && !isLoading" class="no-data">
-      <mat-icon>event_busy</mat-icon>
-      <p>No events found</p>
-    </div>
-  </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>

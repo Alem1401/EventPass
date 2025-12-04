@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDividerModule } from '@angular/material/divider';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -28,6 +29,7 @@ import { SponsorCreate } from '../../../core/models/sponsor.model';
     MatIconModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
+    MatDividerModule,
   ],
 })
 export class SponsorFormComponent implements OnInit {

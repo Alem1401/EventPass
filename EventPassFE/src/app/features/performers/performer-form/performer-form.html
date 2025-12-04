@@ -1,78 +1,113 @@
-<div class="performer-form-container">
-  <mat-card class="form-card">
-    <mat-card-header>
-      <mat-card-title>
-        {{ isEditMode ? 'Edit Performer' : 'Create Performer' }}
-      </mat-card-title>
-      <mat-card-subtitle>All fields marked are required</mat-card-subtitle>
+<div class="form-container">
+  <mat-card class="enterprise-card" elevation="3">
+    <mat-card-header class="card-header">
+      <div class="header-content">
+        <mat-icon class="header-icon">{{ isEditMode ? 'edit' : 'person_add' }}</mat-icon>
+        <div>
+          <mat-card-title class="card-title">
+            {{ isEditMode ? 'Edit Performer' : 'Create Performer' }}
+          </mat-card-title>
+          <mat-card-subtitle class="card-subtitle">
+            {{ isEditMode ? 'Update performer information' : 'Add a new performer to the system' }}
+          </mat-card-subtitle>
+        </div>
+      </div>
     </mat-card-header>
 
-    <mat-card-content>
+    <mat-card-content class="card-content">
       <div class="loading-overlay" *ngIf="loading">
-        <mat-progress-spinner diameter="40" mode="indeterminate"></mat-progress-spinner>
+        <mat-progress-spinner diameter="50" mode="indeterminate"></mat-progress-spinner>
       </div>
 
-      <form [formGroup]="form" (ngSubmit)="submit()" class="performer-form">
+      <form [formGroup]="form" (ngSubmit)="submit()" class="enterprise-form">
 
-        <mat-form-field appearance="outline" class="form-field-full">
-          <mat-label>Name</mat-label>
-          <input matInput formControlName="name" />
-          <mat-error *ngIf="form.get('name')?.touched">
-            Name must be at least 2 characters.
-          </mat-error>
-        </mat-form-field>
+        <div class="form-section">
+          <h3 class="section-title">
+            <mat-icon class="section-icon">info</mat-icon>
+            Basic Information
+          </h3>
 
-        <mat-form-field appearance="outline" class="form-field-full">
-          <mat-label>Image URL</mat-label>
-          <input matInput formControlName="imageURL" />
-          <mat-error *ngIf="form.get('imageURL')?.touched">
-            Enter a valid URL starting with http:// or https://
-          </mat-error>
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Performer Name</mat-label>
+            <input matInput formControlName="name" placeholder="Enter performer name" />
+            <mat-icon matPrefix class="field-icon">person</mat-icon>
+            <mat-error *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
+              Name must be at least 2 characters
+            </mat-error>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" class="form-field-full">
-          <mat-label>Website</mat-label>
-          <input matInput formControlName="website" />
-          <mat-error *ngIf="form.get('website')?.touched">
-            Enter a valid URL.
-          </mat-error>
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Image URL</mat-label>
+            <input matInput formControlName="imageURL" placeholder="https://example.com/image.jpg" />
+            <mat-icon matPrefix class="field-icon">image</mat-icon>
+            <mat-error *ngIf="form.get('imageURL')?.touched && form.get('imageURL')?.invalid">
+              Enter a valid URL starting with http:// or https://
+            </mat-error>
+          </mat-form-field>
 
-        <h3>Social Media Links</h3>
-
-        <button mat-stroked-button type="button" color="primary" (click)="addSocialLink()">
-          Add Link
-        </button>
-
-        <div formArrayName="socialMedia">
-          <div *ngFor="let sm of socialMedia.controls; let i = index" [formGroupName]="i">
-
-            <mat-form-field appearance="outline" class="form-field-full">
-              <mat-label>Social link</mat-label>
-              <input matInput formControlName="link" />
-              <mat-error *ngIf="socialMedia.at(i).get('link')?.touched">
-                Enter a valid URL.
-              </mat-error>
-            </mat-form-field>
-
-            <button mat-icon-button color="warn" type="button" (click)="removeSocialLink(i)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </div>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Website</mat-label>
+            <input matInput formControlName="website" placeholder="https://performer-website.com" />
+            <mat-icon matPrefix class="field-icon">language</mat-icon>
+            <mat-error *ngIf="form.get('website')?.touched && form.get('website')?.invalid">
+              Enter a valid website URL
+            </mat-error>
+          </mat-form-field>
         </div>
 
-        <div class="form-actions">
-          <button mat-stroked-button type="button" (click)="cancel()">
-            Back
-          </button>
+        <mat-divider></mat-divider>
 
-          <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid || submitting || loading">
-            {{ isEditMode ? 'Save Changes' : 'Create Performer' }}
-            <mat-progress-spinner *ngIf="submitting" diameter="20" mode="indeterminate"></mat-progress-spinner>
-          </button>
+        <div class="form-section">
+          <div class="section-header">
+            <h3 class="section-title">
+              <mat-icon class="section-icon">share</mat-icon>
+              Social Media Links
+            </h3>
+            <button mat-stroked-button type="button" color="primary" (click)="addSocialLink()" class="add-button">
+              <mat-icon>add</mat-icon>
+              Add Link
+            </button>
+          </div>
+
+          <div formArrayName="socialMedia" class="social-media-list">
+            <div *ngFor="let sm of socialMedia.controls; let i = index" [formGroupName]="i" class="social-media-item">
+              <mat-form-field appearance="outline" class="social-field">
+                <mat-label>Social Media Link {{ i + 1 }}</mat-label>
+                <input matInput formControlName="link" placeholder="https://social-media.com/profile" />
+                <mat-icon matPrefix class="field-icon">link</mat-icon>
+                <mat-error *ngIf="socialMedia.at(i).get('link')?.touched && socialMedia.at(i).get('link')?.invalid">
+                  Enter a valid URL
+                </mat-error>
+              </mat-form-field>
+
+              <button mat-icon-button color="warn" type="button" (click)="removeSocialLink(i)" class="remove-button"
+                      matTooltip="Remove this link">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+
+            <div *ngIf="socialMedia.length === 0" class="empty-state">
+              <mat-icon class="empty-icon">link_off</mat-icon>
+              <p class="empty-text">No social media links added yet</p>
+            </div>
+          </div>
         </div>
       </form>
     </mat-card-content>
+
+    <mat-card-actions class="card-actions">
+      <button mat-stroked-button type="button" (click)="cancel()" class="secondary-button">
+        <mat-icon>arrow_back</mat-icon>
+        Cancel
+      </button>
+
+      <button mat-raised-button color="primary" type="submit" (click)="submit()"
+              [disabled]="form.invalid || submitting || loading" class="primary-button">
+        <mat-icon>{{ isEditMode ? 'save' : 'add' }}</mat-icon>
+        {{ isEditMode ? 'Save Changes' : 'Create Performer' }}
+        <mat-progress-spinner *ngIf="submitting" diameter="20" mode="indeterminate" class="button-spinner"></mat-progress-spinner>
+      </button>
+    </mat-card-actions>
 
   </mat-card>
 </div>

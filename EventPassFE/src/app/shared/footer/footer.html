@@ -1,1 +1,62 @@
-<p>footer works!</p>
+<footer class="enterprise-footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <div class="brand-section">
+          <mat-icon class="footer-icon">confirmation_number</mat-icon>
+          <span class="brand-name">EventPass</span>
+        </div>
+        <p class="brand-tagline">Your premier event management platform</p>
+      </div>
+
+      <div class="footer-section">
+        <h3 class="section-title">Quick Links</h3>
+        <div class="footer-links">
+          <a mat-button routerLink="/events" class="footer-link">
+            <mat-icon>event</mat-icon>
+            Events
+          </a>
+          <a mat-button routerLink="/performers" class="footer-link">
+            <mat-icon>person</mat-icon>
+            Performers
+          </a>
+          <a mat-button routerLink="/sponsors" class="footer-link">
+            <mat-icon>business</mat-icon>
+            Sponsors
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3 class="section-title">Contact</h3>
+        <div class="contact-info">
+          <div class="contact-item">
+            <mat-icon>email</mat-icon>
+            <span>info@eventpass.com</span>
+          </div>
+          <div class="contact-item">
+            <mat-icon>phone</mat-icon>
+            <span>+1 (555) 123-4567</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <mat-divider class="footer-divider"></mat-divider>
+
+    <div class="footer-bottom">
+      <p class="copyright">&copy; {{ currentYear }} EventPass. All rights reserved.</p>
+      <div class="social-links">
+        <button mat-icon-button aria-label="Facebook">
+          <mat-icon>facebook</mat-icon>
+        </button>
+        <button mat-icon-button aria-label="Twitter">
+          <mat-icon>twitter</mat-icon>
+        </button>
+        <button mat-icon-button aria-label="Instagram">
+          <mat-icon>instagram</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</footer>

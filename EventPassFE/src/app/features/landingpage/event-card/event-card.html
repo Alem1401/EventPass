@@ -1,0 +1,26 @@
+<mat-card class="event-card" elevation="3">
+  <div class="card-banner">
+    <img [src]="bannerUrl || 'https://via.placeholder.com/400x200'" [alt]="eventName || 'Event Banner'" class="banner-image">
+    <div class="banner-overlay"></div>
+  </div>
+
+  <mat-card-content class="card-content">
+    <h2 class="event-name">{{ eventName || 'Summer Music Festival' }}</h2>
+    
+    <div class="event-date">
+      <mat-icon class="date-icon">event</mat-icon>
+      <span>{{ eventDate | date:"short" }}</span>
+    </div>
+
+    <p class="event-description">
+      {{ (eventDescription || 'Join us for an unforgettable evening of live music, entertainment, and fun! This spectacular event will feature world-class performers, amazing food, and an electric atmosphere that you won\'t want to miss.') | truncate:120 }}
+    </p>
+
+    <div class="card-footer">
+      <button mat-raised-button color="primary" class="details-button" routerLink="/events/details">
+        <mat-icon>info</mat-icon>
+        <span>More Details</span>
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

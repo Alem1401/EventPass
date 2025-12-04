@@ -8,6 +8,8 @@ import { Sponsor } from '../../../core/models/sponsor.model';
 import { MatIcon } from "@angular/material/icon";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-sponsors-list',
@@ -17,7 +19,9 @@ import { Router } from '@angular/router';
     MatTableModule,
     MatProgressSpinnerModule,
     MatCardModule,
-    MatIcon
+    MatIcon,
+    MatButtonModule,
+    MatTooltipModule
 ],
   templateUrl: './sponsor-list.html',
   styleUrls: ['./sponsor-list.css']

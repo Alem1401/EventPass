@@ -1,42 +1,69 @@
-<mat-card class="tickettype-card wider-card">
-	<mat-card-title></mat-card-title>
+<div class="form-container">
+  <mat-card class="enterprise-card" elevation="3">
+    <mat-card-header class="card-header">
+      <div class="header-content">
+        <mat-icon class="header-icon">confirmation_number</mat-icon>
+        <div>
+          <mat-card-title class="card-title">Add Ticket Type</mat-card-title>
+          <mat-card-subtitle class="card-subtitle">Configure ticket pricing and availability</mat-card-subtitle>
+        </div>
+      </div>
+    </mat-card-header>
 
-	<form class="tickettype-form wider-form" [formGroup]="ticketTypeGroup" (ngSubmit)="addNew()">
-		<div class="name-row">
-			<mat-form-field appearance="outline" class="full">
-				<mat-label>Price</mat-label>
-				<input matInput type="number" placeholder="Enter price" formControlName="price" />
-				@if(ticketTypeGroup.controls.price.touched && ticketTypeGroup.controls.price.invalid){
-					<mat-error>You must set a valid price!</mat-error>
-				}
-			</mat-form-field>
+    <mat-card-content class="card-content">
+      <form class="enterprise-form" [formGroup]="ticketTypeGroup" (ngSubmit)="addNew()">
+        
+        <div class="form-section">
+          <h3 class="section-title">
+            <mat-icon class="section-icon">settings</mat-icon>
+            Ticket Configuration
+          </h3>
 
-			<mat-form-field appearance="outline" class="full">
-				<mat-label>Tickets Remaining</mat-label>
-				<input matInput type="number" placeholder="Enter number of tickets" formControlName="remaining"/>
-				@if(ticketTypeGroup.controls.remaining.touched && ticketTypeGroup.controls.remaining.invalid){
-					<mat-error>You must set a valid value!</mat-error>
-				}
-			</mat-form-field>
-		</div>
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Price</mat-label>
+              <input matInput type="number" placeholder="Enter ticket price" formControlName="price" />
+              <mat-icon matPrefix class="field-icon">attach_money</mat-icon>
+              <mat-hint>Set the price per ticket</mat-hint>
+              @if(ticketTypeGroup.controls.price.touched && ticketTypeGroup.controls.price.invalid){
+                <mat-error>Please enter a valid price</mat-error>
+              }
+            </mat-form-field>
 
-		<mat-form-field appearance="outline" class="full">
-			<mat-label>Section</mat-label>
-			<mat-select formControlName="section">
-				@for (s of sections; track $index) {
-					<mat-option  [value]="s.id" >{{ s.name }}</mat-option>
-					@if(ticketTypeGroup.controls.section.touched && ticketTypeGroup.controls.section.invalid){
-					<mat-error>You must select a valid section!</mat-error>
-				}
-				}
-				
-			</mat-select>
-		</mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Tickets Available</mat-label>
+              <input matInput type="number" placeholder="Enter quantity" formControlName="remaining"/>
+              <mat-icon matPrefix class="field-icon">inventory</mat-icon>
+              <mat-hint>Number of tickets to offer</mat-hint>
+              @if(ticketTypeGroup.controls.remaining.touched && ticketTypeGroup.controls.remaining.invalid){
+                <mat-error>Please enter a valid quantity</mat-error>
+              }
+            </mat-form-field>
+          </div>
 
-		
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Section</mat-label>
+            <mat-select formControlName="section">
+              @for (s of sections; track $index) {
+                <mat-option [value]="s.id">{{ s.name }}</mat-option>
+              }
+            </mat-select>
+            <mat-icon matPrefix class="field-icon">location_on</mat-icon>
+            <mat-hint>Select the venue section</mat-hint>
+            @if(ticketTypeGroup.controls.section.touched && ticketTypeGroup.controls.section.invalid){
+              <mat-error>Please select a section</mat-error>
+            }
+          </mat-form-field>
+        </div>
 
-		<button mat-raised-button color="primary" class="submit-btn" type="submit">
-			Add ticket type
-		</button>
-	</form>
-</mat-card>
+        <div class="form-actions">
+          <button mat-raised-button color="primary" class="primary-button" type="submit"
+                  [disabled]="ticketTypeGroup.invalid">
+            <mat-icon>add</mat-icon>
+            Add Ticket Type
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

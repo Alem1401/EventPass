@@ -1,0 +1,90 @@
+<div class="landing-page">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">Find Your Next Event</h1>
+      <p class="hero-subtitle">Discover concerts, festivals, sports, and more</p>
+      
+      <!-- Search Bar -->
+      <div class="search-container">
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-icon matPrefix class="search-icon">search</mat-icon>
+          <input matInput placeholder="Search for events, artists, or venues..." [(ngModel)]="searchQuery">
+          <button mat-icon-button matSuffix *ngIf="searchQuery" (click)="searchQuery = ''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        
+        <button mat-raised-button color="primary" class="search-button" (click)="onSearch()">
+          <mat-icon>search</mat-icon>
+          Search
+        </button>
+      </div>
+
+      <!-- Filter Chips -->
+      <div class="filter-chips">
+        <mat-chip-set>
+          <mat-chip [class.active]="selectedCategory === 'all'" (click)="filterByCategory('all')">
+            <mat-icon>apps</mat-icon>
+            All Events
+          </mat-chip>
+          <mat-chip [class.active]="selectedCategory === 'music'" (click)="filterByCategory('music')">
+            <mat-icon>music_note</mat-icon>
+            Music
+          </mat-chip>
+          <mat-chip [class.active]="selectedCategory === 'sports'" (click)="filterByCategory('sports')">
+            <mat-icon>sports</mat-icon>
+            Sports
+          </mat-chip>
+          <mat-chip [class.active]="selectedCategory === 'theater'" (click)="filterByCategory('theater')">
+            <mat-icon>theater_comedy</mat-icon>
+            Theater
+          </mat-chip>
+          <mat-chip [class.active]="selectedCategory === 'festival'" (click)="filterByCategory('festival')">
+            <mat-icon>celebration</mat-icon>
+            Festivals
+          </mat-chip>
+        </mat-chip-set>
+      </div>
+    </div>
+  </section>
+
+  <!-- Events Grid Section -->
+  <section class="events-section">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">Upcoming Events</h2>
+        <p class="section-subtitle">{{ filteredEvents.length }} {{ filteredEvents.length | pluralize:'event':'events' }} found</p>
+      </div>
+
+      <!-- Loading State -->
+      <div *ngIf="loading" class="loading-state">
+        <mat-spinner diameter="60"></mat-spinner>
+        <p class="loading-text">Loading events...</p>
+      </div>
+
+      <!-- Events Grid -->
+      <div *ngIf="!loading && filteredEvents.length > 0" class="events-grid">
+        <app-event-card 
+          *ngFor="let event of filteredEvents"
+          [eventName]="event.name"
+          [eventDate]="event.startDate"
+          [eventDescription]="event.description"
+          [bannerUrl]="event.bannerURL">
+        </app-event-card>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="!loading && filteredEvents.length === 0" class="empty-state">
+        <mat-icon class="empty-icon">event_busy</mat-icon>
+        <h3 class="empty-title">No Events Found</h3>
+        <p class="empty-text">Try adjusting your search or filter criteria</p>
+        <button mat-raised-button color="primary" (click)="clearFilters()">
+          <mat-icon>refresh</mat-icon>
+          Clear Filters
+        </button>
+      </div>
+    </div>
+  </section>
+</div>

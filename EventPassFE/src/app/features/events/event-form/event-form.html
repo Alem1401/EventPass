@@ -1,131 +1,175 @@
-<div class="container" *ngIf="!isLoading">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>
-        {{ isEditMode ? 'Edit Event' : 'Create New Event' }}
-      </mat-card-title>
+<div class="form-container" *ngIf="!isLoading">
+  <mat-card class="enterprise-card" elevation="3">
+    <mat-card-header class="card-header">
+      <div class="header-content">
+        <mat-icon class="header-icon">{{ isEditMode ? 'edit_calendar' : 'event' }}</mat-icon>
+        <div>
+          <mat-card-title class="card-title">
+            {{ isEditMode ? 'Edit Event' : 'Create New Event' }}
+          </mat-card-title>
+          <mat-card-subtitle class="card-subtitle">
+            {{ isEditMode ? 'Update event information below' : 'Fill in the details to create an event' }}
+          </mat-card-subtitle>
+        </div>
+      </div>
     </mat-card-header>
 
-    <mat-card-content>
-      <form [formGroup]="eventForm" class="event-form">
+    <mat-card-content class="card-content">
+      <form [formGroup]="eventForm" class="enterprise-form">
 
-        <div class="form-row">
-          <mat-form-field appearance="outline" class="full-width">
+        <div class="form-section">
+          <h3 class="section-title">
+            <mat-icon class="section-icon">info</mat-icon>
+            Basic Information
+          </h3>
+
+          <mat-form-field appearance="outline" class="form-field">
             <mat-label>Event Name</mat-label>
             <input matInput formControlName="name" placeholder="Enter event name">
+            <mat-icon matPrefix class="field-icon">title</mat-icon>
             <mat-error>{{ getErrorMessage('name') }}</mat-error>
           </mat-form-field>
-        </div>
 
-        <div class="form-row">
-          <mat-form-field appearance="outline" class="full-width">
+          <mat-form-field appearance="outline" class="form-field">
             <mat-label>Description</mat-label>
             <textarea matInput formControlName="description" rows="4"
                       placeholder="Enter event description"></textarea>
+            <mat-icon matPrefix class="field-icon textarea-icon">description</mat-icon>
             <mat-error>{{ getErrorMessage('description') }}</mat-error>
           </mat-form-field>
-        </div>
 
-        <div class="form-row">
-          <mat-form-field appearance="outline" class="full-width">
+          <mat-form-field appearance="outline" class="form-field">
             <mat-label>Banner URL</mat-label>
             <input matInput formControlName="bannerURL" placeholder="https://example.com/banner.jpg">
+            <mat-icon matPrefix class="field-icon">image</mat-icon>
             <mat-error>{{ getErrorMessage('bannerURL') }}</mat-error>
           </mat-form-field>
         </div>
 
-        <div class="form-row">
-          <mat-form-field appearance="outline">
-            <mat-label>Start Date & Time</mat-label>
-            <input matInput [matDatepicker]="startPicker" formControlName="startDate" readonly>
-            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-            <mat-datepicker #startPicker></mat-datepicker>
-            <mat-error>{{ getErrorMessage('startDate') }}</mat-error>
-          </mat-form-field>
+        <mat-divider></mat-divider>
 
-          <mat-form-field appearance="outline">
-            <mat-label>End Date & Time</mat-label>
-            <input matInput [matDatepicker]="endPicker" formControlName="endDate" readonly>
-            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-            <mat-datepicker #endPicker></mat-datepicker>
-            <mat-error>{{ getErrorMessage('endDate') }}</mat-error>
-          </mat-form-field>
+        <div class="form-section">
+          <h3 class="section-title">
+            <mat-icon class="section-icon">schedule</mat-icon>
+            Date & Time Details
+          </h3>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Start Date & Time</mat-label>
+              <input matInput [matDatepicker]="startPicker" formControlName="startDate" readonly>
+              <mat-icon matPrefix class="field-icon">event</mat-icon>
+              <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+              <mat-datepicker #startPicker></mat-datepicker>
+              <mat-error>{{ getErrorMessage('startDate') }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>End Date & Time</mat-label>
+              <input matInput [matDatepicker]="endPicker" formControlName="endDate" readonly>
+              <mat-icon matPrefix class="field-icon">event_available</mat-icon>
+              <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+              <mat-datepicker #endPicker></mat-datepicker>
+              <mat-error>{{ getErrorMessage('endDate') }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Duration</mat-label>
+              <input matInput type="time" formControlName="duration">
+              <mat-icon matPrefix class="field-icon">timer</mat-icon>
+              <mat-error>{{ getErrorMessage('duration') }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Minimum Age</mat-label>
+              <input matInput type="number" formControlName="minimumAge" min="0" max="100">
+              <mat-icon matPrefix class="field-icon">supervisor_account</mat-icon>
+              <mat-error>{{ getErrorMessage('minimumAge') }}</mat-error>
+            </mat-form-field>
+          </div>
         </div>
 
-        <div class="form-row">
-          <mat-form-field appearance="outline">
-            <mat-label>Duration</mat-label>
-            <input matInput type="time" formControlName="duration">
-            <mat-error>{{ getErrorMessage('duration') }}</mat-error>
-          </mat-form-field>
+        <mat-divider></mat-divider>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Minimum Age</mat-label>
-            <input matInput type="number" formControlName="minimumAge" min="0" max="100">
-            <mat-error>{{ getErrorMessage('minimumAge') }}</mat-error>
-          </mat-form-field>
-        </div>
+        <div class="form-section">
+          <h3 class="section-title">
+            <mat-icon class="section-icon">category</mat-icon>
+            Event Details
+          </h3>
 
-        <div class="form-row">
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Performer</mat-label>
+              <mat-select formControlName="performerID">
+                <mat-option *ngFor="let p of performers" [value]="p.id">
+                  {{ p.name }}
+                </mat-option>
+              </mat-select>
+              <mat-icon matPrefix class="field-icon">person</mat-icon>
+              <mat-error>{{ getErrorMessage('performerID') }}</mat-error>
+            </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Performer</mat-label>
-            <mat-select formControlName="performerID">
-              <mat-option *ngFor="let p of performers" [value]="p.id">
-                {{ p.name }}
-              </mat-option>
-            </mat-select>
-            <mat-error>{{ getErrorMessage('performerID') }}</mat-error>
-          </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Category</mat-label>
+              <mat-select formControlName="categoryId">
+                <mat-option *ngFor="let c of categories" [value]="c.id">
+                  {{ c.name }}
+                </mat-option>
+              </mat-select>
+              <mat-icon matPrefix class="field-icon">category</mat-icon>
+              <mat-error>{{ getErrorMessage('categoryId') }}</mat-error>
+            </mat-form-field>
+          </div>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Category</mat-label>
-            <mat-select formControlName="categoryId">
-              <mat-option *ngFor="let c of categories" [value]="c.id">
-                {{ c.name }}
-              </mat-option>
-            </mat-select>
-            <mat-error>{{ getErrorMessage('categoryId') }}</mat-error>
-          </mat-form-field>
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Organizer</mat-label>
+              <mat-select formControlName="organizerID">
+                <mat-option *ngFor="let o of organizers" [value]="o.id">
+                  {{ o.name }} ({{ o.city }})
+                </mat-option>
+              </mat-select>
+              <mat-icon matPrefix class="field-icon">business</mat-icon>
+              <mat-error>{{ getErrorMessage('organizerID') }}</mat-error>
+            </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Organizer</mat-label>
-            <mat-select formControlName="organizerID">
-              <mat-option *ngFor="let o of organizers" [value]="o.id">
-                {{ o.name }} ({{ o.city }})
-              </mat-option>
-            </mat-select>
-            <mat-error>{{ getErrorMessage('organizerID') }}</mat-error>
-          </mat-form-field>
-
-        </div>
-
-        <div class="form-row">
-          <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Venue</mat-label>
-            <mat-select formControlName="venueID">
-              <mat-option *ngFor="let v of venues" [value]="v.id">
-                {{ v.name }}
-              </mat-option>
-            </mat-select>
-            <mat-error>{{ getErrorMessage('venueID') }}</mat-error>
-          </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Venue</mat-label>
+              <mat-select formControlName="venueID">
+                <mat-option *ngFor="let v of venues" [value]="v.id">
+                  {{ v.name }}
+                </mat-option>
+              </mat-select>
+              <mat-icon matPrefix class="field-icon">location_on</mat-icon>
+              <mat-error>{{ getErrorMessage('venueID') }}</mat-error>
+            </mat-form-field>
+          </div>
         </div>
       </form>
     </mat-card-content>
 
-    <mat-card-actions align="end">
-      <button mat-button type="button" (click)="goBack()">Cancel</button>
+    <mat-card-actions class="card-actions">
+      <button mat-stroked-button type="button" (click)="goBack()" class="secondary-button">
+        <mat-icon>arrow_back</mat-icon>
+        Cancel
+      </button>
 
       <button mat-raised-button color="primary"
               (click)="onSubmit()"
-              [disabled]="!eventForm.valid || isLoading">
+              [disabled]="!eventForm.valid || isLoading"
+              class="primary-button">
+        <mat-icon>{{ isEditMode ? 'save' : 'add' }}</mat-icon>
         {{ isEditMode ? 'Update' : 'Create' }} Event
       </button>
     </mat-card-actions>
   </mat-card>
 </div>
 
-<div *ngIf="isLoading" class="loading-spinner">
-  <mat-spinner></mat-spinner>
+<div *ngIf="isLoading" class="loading-container">
+  <div class="loading-content">
+    <mat-spinner diameter="60"></mat-spinner>
+    <p class="loading-text">Processing...</p>
+  </div>
 </div>

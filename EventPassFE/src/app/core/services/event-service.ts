@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Event, EventCreate, EventUpdate } from '../models/event.model';
+import { ResponseEventDto, CreateEventDto, UpdateEventDto } from '../models/event.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,25 +11,25 @@ export class EventService {
 
   constructor(private http: HttpClient) { }
 
-  getAllEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>(this.apiUrl);
+  getAllEvents(): Observable<ResponseEventDto[]> {
+    return this.http.get<ResponseEventDto[]>(this.apiUrl);
   }
 
-  getEventById(id: number): Observable<Event> {
-    return this.http.get<Event>(`${this.apiUrl}/${id}`);
+  getEventById(id: number): Observable<ResponseEventDto> {
+    return this.http.get<ResponseEventDto>(`${this.apiUrl}/${id}`);
   }
 
-  searchEventsByName(name: string): Observable<Event[]> {
+  searchEventsByName(name: string): Observable<ResponseEventDto[]> {
     const params = new HttpParams().set('name', name);
-    return this.http.get<Event[]>(`${this.apiUrl}/search`, { params });
+    return this.http.get<ResponseEventDto[]>(`${this.apiUrl}/search`, { params });
   }
 
-  createEvent(event: EventCreate): Observable<Event> {
-    return this.http.post<Event>(this.apiUrl, event);
+  createEvent(event: CreateEventDto): Observable<ResponseEventDto> {
+    return this.http.post<ResponseEventDto>(this.apiUrl, event);
   }
 
-  updateEvent(id: number, event: EventUpdate): Observable<Event> {
-    return this.http.put<Event>(`${this.apiUrl}/${id}`, event);
+  updateEvent(id: number, event: UpdateEventDto): Observable<ResponseEventDto> {
+    return this.http.put<ResponseEventDto>(`${this.apiUrl}/${id}`, event);
   }
 
   deleteEvent(id: number): Observable<void> {

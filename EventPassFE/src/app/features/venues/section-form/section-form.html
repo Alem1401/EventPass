@@ -1,25 +1,39 @@
-<mat-card class="form-card">
-  <mat-card-title>Add or Edit Section</mat-card-title>
+<mat-card class="enterprise-section-card" elevation="2">
+  <mat-card-header class="section-card-header">
+    <div class="section-header-content">
+      <mat-icon class="section-header-icon">table_chart</mat-icon>
+      <mat-card-title class="section-card-title">Add or Edit Section</mat-card-title>
+    </div>
+  </mat-card-header>
 
-  <form class="item-form" [formGroup]="sectionForm" (ngSubmit)="submitSection()">
-    <mat-form-field appearance="outline" class="full">
-      <mat-label>Name</mat-label>
-      <input matInput placeholder="Enter name" formControlName="name">
-      @if(sectionForm.get('name')?.invalid && sectionForm.get('name')?.touched) {
-        <mat-error>Name is required.</mat-error>
-      }
-    </mat-form-field>
+  <mat-card-content class="section-card-content">
+    <form class="section-form" [formGroup]="sectionForm" (ngSubmit)="submitSection()">
+      
+      <mat-form-field appearance="outline" class="section-field">
+        <mat-label>Section Name</mat-label>
+        <input matInput placeholder="Enter section name" formControlName="name">
+        <mat-icon matPrefix class="section-field-icon">label</mat-icon>
+        @if(sectionForm.get('name')?.invalid && sectionForm.get('name')?.touched) {
+          <mat-error>Section name is required</mat-error>
+        }
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full">
-      <mat-label>Capacity</mat-label>
-      <input matInput type="number" placeholder="Enter capacity" formControlName="capacity">
-      @if(sectionForm.get('capacity')?.invalid && sectionForm.get('capacity')?.touched) {
-        <mat-error>Capacity is required and must be greater than 0.</mat-error>
-      }
-    </mat-form-field>
+      <mat-form-field appearance="outline" class="section-field">
+        <mat-label>Capacity</mat-label>
+        <input matInput type="number" placeholder="Enter section capacity" formControlName="capacity">
+        <mat-icon matPrefix class="section-field-icon">people</mat-icon>
+        @if(sectionForm.get('capacity')?.invalid && sectionForm.get('capacity')?.touched) {
+          <mat-error>Capacity is required and must be greater than 0</mat-error>
+        }
+      </mat-form-field>
 
-    <button mat-raised-button color="primary" class="submit-btn" type="submit">
-      Submit
-    </button>
-  </form>
+      <div class="section-actions">
+        <button mat-raised-button color="primary" class="section-submit-btn" type="submit"
+                [disabled]="sectionForm.invalid">
+          <mat-icon>check</mat-icon>
+          Submit Section
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
 </mat-card>

@@ -11,9 +11,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { EventService } from '../../../../app/core/services/event-service';
-import { EventCreate, EventUpdate } from '../../../../app/core/models/event.model';
+import { CreateEventDto, UpdateEventDto } from '../../../../app/core/models/event.model';
 
 import { PerformerService } from '../../../core/services/performer-service';
 import { OrganizerService } from '../../../core/services/organizer-service';
@@ -37,7 +39,9 @@ import { firstValueFrom } from 'rxjs';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatCardModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIconModule,
+    MatDividerModule
   ],
   templateUrl: './event-form.html',
   styleUrls: ['./event-form.css']
@@ -175,7 +179,7 @@ export class EventFormComponent implements OnInit {
     }
   }
 
-  private prepareFormData(): EventCreate {
+  private prepareFormData(): CreateEventDto {
     const formValue = this.eventForm.value;
 
     console.log('DEBUG: formValue.venueID raw:', formValue.venueID, 'type:', typeof formValue.venueID);
@@ -185,7 +189,7 @@ export class EventFormComponent implements OnInit {
     let durationWithSec = formValue.duration;
     if (/^\d{1,2}:\d{2}$/.test(durationWithSec)) durationWithSec += ':00';
 
-    const eventData: EventCreate = {
+    const eventData: CreateEventDto = {
       name: formValue.name,
       description: formValue.description,
       bannerURL: formValue.bannerURL,
@@ -232,7 +236,7 @@ export class EventFormComponent implements OnInit {
     this.eventForm.get('venueID')?.setValue(Number(event.value));
   }
 
-  private createEvent(eventData: EventCreate): void {
+  private createEvent(eventData: CreateEventDto): void {
     console.log('createEvent called with:', eventData);
     this.eventService.createEvent(eventData).subscribe({
       next: () => {
@@ -252,7 +256,7 @@ export class EventFormComponent implements OnInit {
     });
   }
 
-  private updateEvent(eventData: EventUpdate): void {
+  private updateEvent(eventData: UpdateEventDto): void {
     if (!this.eventId) return;
 
     console.log('updateEvent called with eventId:', this.eventId, 'data:', eventData);

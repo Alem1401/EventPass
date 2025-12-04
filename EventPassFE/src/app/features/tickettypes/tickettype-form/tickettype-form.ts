@@ -4,7 +4,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatOptionModule } from '@angular/material/core'; 
+import { MatOptionModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon'; 
 import { responseSectionDto } from '../../../core/dtos/venue/response-section.dto';
 import { VenueService } from '../../../core/services/venue-service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -29,7 +30,8 @@ import { TickettypeService } from '../../../core/services/tickettype-service';
     MatSelectModule,
     MatInputModule,
     MatButtonModule,
-    MatOptionModule, 
+    MatOptionModule,
+    MatIconModule,
   ],
   templateUrl: './tickettype-form.html',
   styleUrls: ['./tickettype-form.css'],
@@ -81,7 +83,7 @@ export class TickettypeForm implements OnInit {
         eventId: this.eventId,
       };
       this.ticketTypeService.addTicketType(toAdd).subscribe({
-        next : () => this.router.navigate(["events/tickettypes/create/",this.eventId])
+        next : () => this.router.navigate(["/events/tickettypes/create",this.eventId])
       })
     }
   }

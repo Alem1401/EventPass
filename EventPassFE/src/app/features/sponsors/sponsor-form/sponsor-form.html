@@ -1,65 +1,97 @@
-<div class="container" *ngIf="!isLoading">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>
-        {{ isEditMode ? 'Edit Sponsor' : 'Add New Sponsor' }}
-      </mat-card-title>
+<div class="form-container" *ngIf="!isLoading">
+  <mat-card class="enterprise-card" elevation="3">
+    <mat-card-header class="card-header">
+      <div class="header-content">
+        <mat-icon class="header-icon">{{ isEditMode ? 'edit' : 'business_center' }}</mat-icon>
+        <div>
+          <mat-card-title class="card-title">
+            {{ isEditMode ? 'Edit Sponsor' : 'Add New Sponsor' }}
+          </mat-card-title>
+          <mat-card-subtitle class="card-subtitle">
+            {{ isEditMode ? 'Update sponsor information' : 'Add a new sponsor to the platform' }}
+          </mat-card-subtitle>
+        </div>
+      </div>
     </mat-card-header>
 
-    <mat-card-content>
-      <form [formGroup]="sponsorForm" class="sponsor-form">
+    <mat-card-content class="card-content">
+      <form [formGroup]="sponsorForm" class="enterprise-form">
 
-        <div class="form-row">
-          <mat-form-field appearance="outline" class="full-width">
+        <div class="form-section">
+          <h3 class="section-title">
+            <mat-icon class="section-icon">info</mat-icon>
+            Sponsor Information
+          </h3>
+
+          <mat-form-field appearance="outline" class="form-field">
             <mat-label>Sponsor Name</mat-label>
             <input matInput formControlName="Name" placeholder="Enter sponsor name">
+            <mat-icon matPrefix class="field-icon">business</mat-icon>
             <mat-error>{{ getErrorMessage('Name') }}</mat-error>
           </mat-form-field>
-        </div>
 
-        <div class="form-row">
-          <mat-form-field appearance="outline" class="full-width">
+          <mat-form-field appearance="outline" class="form-field">
             <mat-label>Logo URL</mat-label>
             <input matInput formControlName="LogoUrl" placeholder="https://example.com/logo.png">
+            <mat-icon matPrefix class="field-icon">image</mat-icon>
             <mat-error>{{ getErrorMessage('LogoURL') }}</mat-error>
           </mat-form-field>
-        </div>
 
-        <div class="form-row">
-          <mat-form-field appearance="outline" class="full-width">
+          <mat-form-field appearance="outline" class="form-field">
             <mat-label>Website</mat-label>
-            <input matInput formControlName="websiteUrl" placeholder="https://sponsor.com">
+            <input matInput formControlName="websiteUrl" placeholder="https://sponsor-website.com">
+            <mat-icon matPrefix class="field-icon">language</mat-icon>
             <mat-error>{{ getErrorMessage('websiteUrl') }}</mat-error>
           </mat-form-field>
         </div>
 
-        <div class="form-row">
-          <mat-form-field appearance="outline">
-            <mat-label>Contact Email</mat-label>
-            <input matInput type="email" formControlName="Email" placeholder="email@example.com">
-            <mat-error>{{ getErrorMessage('Email') }}</mat-error>
-          </mat-form-field>
+        <mat-divider></mat-divider>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Contact Phone</mat-label>
-            <input matInput type="text" formControlName="Phone" placeholder="+123456789">
-            <mat-error>{{ getErrorMessage('Phone') }}</mat-error>
-          </mat-form-field>
+        <div class="form-section">
+          <h3 class="section-title">
+            <mat-icon class="section-icon">contact_mail</mat-icon>
+            Contact Details
+          </h3>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Contact Email</mat-label>
+              <input matInput type="email" formControlName="Email" placeholder="contact@sponsor.com">
+              <mat-icon matPrefix class="field-icon">email</mat-icon>
+              <mat-error>{{ getErrorMessage('Email') }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Contact Phone</mat-label>
+              <input matInput type="text" formControlName="Phone" placeholder="+1 234 567 8900">
+              <mat-icon matPrefix class="field-icon">phone</mat-icon>
+              <mat-error>{{ getErrorMessage('Phone') }}</mat-error>
+            </mat-form-field>
+          </div>
         </div>
 
       </form>
     </mat-card-content>
 
-    <mat-card-actions align="end">
-      <button mat-button type="button" (click)="goBack()">Cancel</button>
+    <mat-card-actions class="card-actions">
+      <button mat-stroked-button type="button" (click)="goBack()" class="secondary-button">
+        <mat-icon>arrow_back</mat-icon>
+        Cancel
+      </button>
+
       <button mat-raised-button color="primary" (click)="onSubmit()" 
-              [disabled]="!sponsorForm.valid || isLoading">
+              [disabled]="!sponsorForm.valid || isLoading"
+              class="primary-button">
+        <mat-icon>{{ isEditMode ? 'save' : 'add' }}</mat-icon>
         {{ isEditMode ? 'Update' : 'Add' }} Sponsor
       </button>
     </mat-card-actions>
   </mat-card>
 </div>
 
-<div *ngIf="isLoading" class="loading-spinner">
-  <mat-spinner></mat-spinner>
+<div *ngIf="isLoading" class="loading-container">
+  <div class="loading-content">
+    <mat-spinner diameter="60"></mat-spinner>
+    <p class="loading-text">Processing...</p>
+  </div>
 </div>

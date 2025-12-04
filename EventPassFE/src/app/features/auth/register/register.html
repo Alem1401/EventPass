@@ -1,53 +1,101 @@
-<mat-card class="register-card"  >
-  <mat-card-title>Register</mat-card-title>
+<div class="form-container">
+  <mat-card class="enterprise-card" elevation="3">
+    <mat-card-header class="card-header">
+      <div class="header-content">
+        <mat-icon class="header-icon">person_add</mat-icon>
+        <div>
+          <mat-card-title class="card-title">Create Account</mat-card-title>
+          <mat-card-subtitle class="card-subtitle">Join us today! Please fill in the details below</mat-card-subtitle>
+        </div>
+      </div>
+    </mat-card-header>
 
-  <form class="register-form" [formGroup]="registerForm" (ngSubmit)="registerUser()">
-    <div class="name-row">
-      <mat-form-field appearance="outline" class="full">
-        <mat-label>First Name</mat-label>
-        <input matInput placeholder="Name" formControlName="firstName" />
-      </mat-form-field>
+    <mat-card-content class="card-content">
+      <form class="enterprise-form" [formGroup]="registerForm" (ngSubmit)="registerUser()">
+        <div class="form-section">
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field half-width">
+              <mat-label>First Name</mat-label>
+              <input matInput placeholder="Enter first name" formControlName="firstName" />
+              <mat-icon matPrefix class="field-icon">person</mat-icon>
+              <mat-error *ngIf="registerForm.controls.firstName.invalid && registerForm.controls.firstName.touched">
+                First name is required
+              </mat-error>
+            </mat-form-field>
 
-      <mat-form-field appearance="outline" class="full">
-        <mat-label>Last Name</mat-label>
-        <input matInput placeholder="Surname" formControlName = "lastName" />
-      </mat-form-field>
-    </div>
+            <mat-form-field appearance="outline" class="form-field half-width">
+              <mat-label>Last Name</mat-label>
+              <input matInput placeholder="Enter last name" formControlName="lastName" />
+              <mat-icon matPrefix class="field-icon">person_outline</mat-icon>
+              <mat-error *ngIf="registerForm.controls.lastName.invalid && registerForm.controls.lastName.touched">
+                Last name is required
+              </mat-error>
+            </mat-form-field>
+          </div>
 
-    <mat-form-field appearance="outline" class="full">
-      <mat-label>Email</mat-label>
-      <input matInput type="email" placeholder="Email" formControlName = "email" />
-    </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Email Address</mat-label>
+            <input matInput type="email" placeholder="Enter your email" formControlName="email" />
+            <mat-icon matPrefix class="field-icon">email</mat-icon>
+            <mat-error *ngIf="registerForm.controls.email.invalid && registerForm.controls.email.touched">
+              Please enter a valid email address
+            </mat-error>
+          </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full">
-      <mat-label>Password</mat-label>
-      <input matInput type="password" placeholder="Password" formControlName="password"/>
-      <button mat-icon-button matSuffix type="button" aria-label="Show/hide password">
-        <mat-icon>visibility_off</mat-icon>
-      </button>
-    </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" placeholder="Create a password" formControlName="password"/>
+            <mat-icon matPrefix class="field-icon">lock</mat-icon>
+            <button mat-icon-button matSuffix type="button" aria-label="Toggle password visibility" tabindex="-1">
+              <mat-icon>visibility_off</mat-icon>
+            </button>
+            <mat-error *ngIf="registerForm.controls.password.invalid && registerForm.controls.password.touched">
+              Password is required
+            </mat-error>
+          </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full">
-      <mat-label>Confirm Password</mat-label>
-      <input matInput type="password" placeholder="Confirm password" formControlName="confirmPassword"/>
-      <button mat-icon-button matSuffix type="button" aria-label="Show/hide password">
-        <mat-icon>visibility_off</mat-icon>
-      </button>
-    </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput type="password" placeholder="Re-enter password" formControlName="confirmPassword"/>
+            <mat-icon matPrefix class="field-icon">lock_outline</mat-icon>
+            <button mat-icon-button matSuffix type="button" aria-label="Toggle password visibility" tabindex="-1">
+              <mat-icon>visibility_off</mat-icon>
+            </button>
+            <mat-error *ngIf="registerForm.controls.confirmPassword.invalid && registerForm.controls.confirmPassword.touched">
+              Passwords must match
+            </mat-error>
+          </mat-form-field>
 
-    <button mat-raised-button color="primary" class="submit-btn">
-      Register
-    </button>
+          @if (!passwordValid) {
+            <mat-card class="warning-card">
+              <div class="warning-content">
+                <mat-icon class="warning-icon">info</mat-icon>
+                <span>Password must contain at least one special character and one uppercase letter</span>
+              </div>
+            </mat-card>
+          }
+        </div>
 
-    
-    @if (!passwordValid) {
-      <p>Password must contain one special character and one upper character</p>
-      
-      
-    }
-  </form>
-  <p class="info-text">
-    Already have account?
-    <a routerLink="/auth/login" class="link">Login</a>
-  </p>
-</mat-card>
+        <div class="form-actions">
+          <button 
+            mat-raised-button 
+            color="primary" 
+            type="submit"
+            class="primary-button">
+            <mat-icon>how_to_reg</mat-icon>
+            Create Account
+          </button>
+        </div>
+
+        <mat-divider class="divider"></mat-divider>
+
+        <div class="footer-text">
+          <p class="info-text">
+            Already have an account?
+            <a routerLink="/auth/login" class="link" mat-button>Sign In</a>
+          </p>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

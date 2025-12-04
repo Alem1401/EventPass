@@ -8,8 +8,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { Event } from '../../../core/models/event.model';
+import { ResponseEventDto } from '../../../core/models/event.model';
 import { EventService } from '../../../core/services/event-service';
 
 @Component({
@@ -24,14 +27,17 @@ import { EventService } from '../../../core/services/event-service';
     MatIconModule,
     MatProgressSpinnerModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatCardModule,
+    MatChipsModule,
+    MatTooltipModule
   ],
   templateUrl: './event-list.html',
   styleUrls: ['./event-list.css']
 })
 export class EventListComponent implements OnInit {
   displayedColumns: string[] = ['name', 'startDate', 'endDate', 'category', 'organizer', 'actions'];
-  dataSource = new MatTableDataSource<Event>();
+  dataSource = new MatTableDataSource<ResponseEventDto>();
   isLoading = true;
 
   constructor(

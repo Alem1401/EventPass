@@ -1,78 +1,122 @@
-<div class="container">
-
-  <div class="header">
-    <h1>Performers</h1>
-
-    <button mat-raised-button color="primary" (click)="create()">
-      <mat-icon>add</mat-icon>
-      New Performer
-    </button>
-  </div>
-
-  <mat-form-field appearance="outline" class="search-field">
-    <mat-label>Search Performers</mat-label>
-    <input matInput [formControl]="filterControl" placeholder="Search by name">
-    <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field>
-
-  <div class="table-container">
-
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
-        <td mat-cell *matCellDef="let row">
-          <div class="name-cell">
-            <div class="avatar" *ngIf="row.imageURL">
-              <img [src]="row.imageURL" [alt]="row.name">
-            </div>
-            <span>{{ row.name }}</span>
+<div class="list-container">
+  <mat-card class="enterprise-list-card" elevation="3">
+    <mat-card-header class="list-card-header">
+      <div class="header-content">
+        <div class="header-left">
+          <mat-icon class="header-icon">person</mat-icon>
+          <div>
+            <mat-card-title class="list-card-title">Performers Management</mat-card-title>
+            <mat-card-subtitle class="list-card-subtitle">View and manage all performers</mat-card-subtitle>
           </div>
-        </td>
-      </ng-container>
+        </div>
+        <button mat-raised-button color="primary" (click)="create()" class="create-button">
+          <mat-icon>add</mat-icon>
+          New Performer
+        </button>
+      </div>
+    </mat-card-header>
 
-      <ng-container matColumnDef="website">
-        <th mat-header-cell *matHeaderCellDef>Website</th>
-        <td mat-cell *matCellDef="let row">
-          <a *ngIf="row.website" [href]="row.website" target="_blank" rel="noopener">
-            {{ row.website }}
-          </a>
-          <span *ngIf="!row.website" class="muted">No website</span>
-        </td>
-      </ng-container>
+    <mat-card-content class="list-card-content">
+      <div class="search-section">
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-label>Search Performers</mat-label>
+          <input matInput [formControl]="filterControl" placeholder="Search by name or website">
+          <mat-icon matPrefix class="search-icon">search</mat-icon>
+        </mat-form-field>
+      </div>
 
-      <ng-container matColumnDef="socialCount">
-        <th mat-header-cell *matHeaderCellDef>Social Links</th>
-        <td mat-cell *matCellDef="let row">
-          {{ getSocialCount(row) }}
-        </td>
-      </ng-container>
+      <div class="table-wrapper">
+        <table mat-table [dataSource]="dataSource" class="enterprise-table">
 
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
-        <td mat-cell *matCellDef="let row">
-          <button mat-icon-button color="primary" (click)="edit(row)">
-            <mat-icon>edit</mat-icon>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">
+                <mat-icon class="column-icon">badge</mat-icon>
+                Performer
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <div class="name-cell">
+                <div class="avatar" *ngIf="row.imageURL">
+                  <img [src]="row.imageURL" [alt]="row.name">
+                </div>
+                <div class="avatar-placeholder" *ngIf="!row.imageURL">
+                  <mat-icon>person</mat-icon>
+                </div>
+                <span class="performer-name">{{ row.name }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="website">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">
+                <mat-icon class="column-icon">language</mat-icon>
+                Website
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <a *ngIf="row.website" [href]="row.website" target="_blank" rel="noopener" class="website-link">
+                <mat-icon class="link-icon">link</mat-icon>
+                {{ row.website }}
+              </a>
+              <span *ngIf="!row.website" class="muted-text">
+                <mat-icon class="muted-icon">link_off</mat-icon>
+                No website
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="socialCount">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">
+                <mat-icon class="column-icon">share</mat-icon>
+                Social Links
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-chip class="social-chip">
+                <mat-icon class="chip-icon">link</mat-icon>
+                {{ getSocialCount(row) }}
+              </mat-chip>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">Actions</div>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <div class="action-buttons">
+                <button mat-icon-button color="primary" (click)="edit(row)" matTooltip="Edit Performer">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="delete(row)" matTooltip="Delete Performer">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+        </table>
+
+        <div *ngIf="loading" class="loading-state">
+          <mat-spinner diameter="60"></mat-spinner>
+          <p class="loading-text">Loading performers...</p>
+        </div>
+
+        <div *ngIf="dataSource.data.length === 0 && !loading" class="empty-state">
+          <mat-icon class="empty-icon">person_off</mat-icon>
+          <h3 class="empty-title">No Performers Found</h3>
+          <p class="empty-text">Get started by adding your first performer</p>
+          <button mat-raised-button color="primary" (click)="create()">
+            <mat-icon>add</mat-icon>
+            New Performer
           </button>
-
-          <button mat-icon-button color="warn" (click)="delete(row)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
-    <div *ngIf="loading" class="loading-spinner">
-      <mat-spinner></mat-spinner>
-    </div>
-
-    <div *ngIf="dataSource.data.length === 0 && !loading" class="no-data">
-      <mat-icon>person_off</mat-icon>
-      <p>No performers found</p>
-    </div>
-
-  </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>

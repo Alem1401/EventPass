@@ -1,78 +1,130 @@
-<mat-card class="venue-card wider-card">
-  <mat-card-title>{{editMode ? "Edit Venue" : "Add Venue"}}</mat-card-title>
+<div class="form-container">
+  <mat-card class="enterprise-card" elevation="3">
+    <mat-card-header class="card-header">
+      <div class="header-content">
+        <mat-icon class="header-icon">{{ editMode ? 'edit_location' : 'add_location' }}</mat-icon>
+        <div>
+          <mat-card-title class="card-title">{{editMode ? "Edit Venue" : "Add Venue"}}</mat-card-title>
+          <mat-card-subtitle class="card-subtitle">
+            {{ editMode ? 'Update venue information and manage sections' : 'Create a new venue with sections' }}
+          </mat-card-subtitle>
+        </div>
+      </div>
+    </mat-card-header>
 
-  <form class="venue-form wider-form" [formGroup]="venueForm" (ngSubmit)="finishVenue()">
-    <div class="name-row">
-      <mat-form-field appearance="outline" class="full">
-        <mat-label>Venue Name</mat-label>
-        <input matInput placeholder="Enter venue name" formControlName="name">
-        <mat-error *ngIf="venueForm.get('name')?.invalid && venueForm.get('name')?.touched">Venue name is
-          required.</mat-error>
-      </mat-form-field>
-    </div>
+    <mat-card-content class="card-content">
+      <form class="enterprise-form" [formGroup]="venueForm" (ngSubmit)="finishVenue()">
+        
+        <div class="form-section">
+          <h3 class="section-title">
+            <mat-icon class="section-icon">info</mat-icon>
+            Venue Information
+          </h3>
 
-    <mat-form-field appearance="outline" class="full">
-      <mat-label>Address</mat-label>
-      <input matInput placeholder="Enter venue address" formControlName="address">
-      <mat-error *ngIf="venueForm.get('address')?.invalid && venueForm.get('address')?.touched">Address is
-        required.</mat-error>
-    </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Venue Name</mat-label>
+            <input matInput placeholder="Enter venue name" formControlName="name">
+            <mat-icon matPrefix class="field-icon">business</mat-icon>
+            <mat-error *ngIf="venueForm.get('name')?.invalid && venueForm.get('name')?.touched">
+              Venue name is required
+            </mat-error>
+          </mat-form-field>
 
-    <div class="name-row">
-      <mat-form-field appearance="outline" class="full">
-        <mat-label>City</mat-label>
-        <input matInput placeholder="Enter city" formControlName="city">
-        <mat-error *ngIf="venueForm.get('city')?.invalid && venueForm.get('city')?.touched">City is
-          required.</mat-error>
-      </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Address</mat-label>
+            <input matInput placeholder="Enter venue address" formControlName="address">
+            <mat-icon matPrefix class="field-icon">location_on</mat-icon>
+            <mat-error *ngIf="venueForm.get('address')?.invalid && venueForm.get('address')?.touched">
+              Address is required
+            </mat-error>
+          </mat-form-field>
+        </div>
 
-      <mat-form-field appearance="outline" class="full">
-        <mat-label>Country</mat-label>
-        <input matInput placeholder="Enter country" formControlName="country">
-        <mat-error *ngIf="venueForm.get('country')?.invalid && venueForm.get('country')?.touched">Country is
-          required.</mat-error>
-      </mat-form-field>
-    </div>
+        <mat-divider></mat-divider>
 
-    <div class="name-row">
-      <mat-form-field appearance="outline" class="full">
-        <mat-label>Postal Code</mat-label>
-        <input matInput type="number" placeholder="Postal code" formControlName="postalCode">
-        <mat-error *ngIf="venueForm.get('postalCode')?.invalid && venueForm.get('postalCode')?.touched">Postal code is
-          required and must be greater than 0.</mat-error>
-      </mat-form-field>
+        <div class="form-section">
+          <h3 class="section-title">
+            <mat-icon class="section-icon">public</mat-icon>
+            Location Details
+          </h3>
 
-      <mat-form-field appearance="outline" class="full">
-        <mat-label>Capacity</mat-label>
-        <input matInput type="number" placeholder="Venue capacity" formControlName="capacity">
-        <mat-error *ngIf="venueForm.get('capacity')?.invalid && venueForm.get('capacity')?.touched">Capacity is required
-          and must be greater than 0.</mat-error>
-      </mat-form-field>
-    </div>
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>City</mat-label>
+              <input matInput placeholder="Enter city" formControlName="city">
+              <mat-icon matPrefix class="field-icon">location_city</mat-icon>
+              <mat-error *ngIf="venueForm.get('city')?.invalid && venueForm.get('city')?.touched">
+                City is required
+              </mat-error>
+            </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full">
-      <mat-label>Venue Type</mat-label>
-      <mat-select formControlName="venueTypeID">
-        <mat-option *ngFor="let item of venueTypes" [value]="item.id">
-          {{ item.name }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="venueForm.get('venueTypeID')?.invalid && venueForm.get('venueTypeID')?.touched">Venue Type is
-        required.</mat-error>
-    </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Country</mat-label>
+              <input matInput placeholder="Enter country" formControlName="country">
+              <mat-icon matPrefix class="field-icon">flag</mat-icon>
+              <mat-error *ngIf="venueForm.get('country')?.invalid && venueForm.get('country')?.touched">
+                Country is required
+              </mat-error>
+            </mat-form-field>
+          </div>
 
-    <button mat-raised-button color="primary" class="submit-btn" type="submit">
-      {{editMode ? "Update Venue" : "Create Venue"}}
-    </button>
-    <button mat-raised-button color="primary" class="submit-btn" type="button" (click)="toggleSectionTable()">
-      {{ showSectionTable ? 'Hide Sections' : 'Manage Sections' }}
-    </button>
-    <button mat-raised-button color="accent" class="toggle-btn" type="button" (click)="toggleSectionForm()">
-      {{ showSectionForm ? 'Hide Section Form' : 'Add Section' }}
-    </button>
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Postal Code</mat-label>
+              <input matInput type="number" placeholder="Postal code" formControlName="postalCode">
+              <mat-icon matPrefix class="field-icon">local_post_office</mat-icon>
+              <mat-error *ngIf="venueForm.get('postalCode')?.invalid && venueForm.get('postalCode')?.touched">
+                Postal code is required and must be greater than 0
+              </mat-error>
+            </mat-form-field>
 
-    <app-section-form *ngIf="showSectionForm" (toBeAdded)="addSection($event)"></app-section-form>
-    <app-section-table *ngIf="showSectionTable" [sections]="displayedSections"
-      (removeSection)="deleteSection($event)" (finishUpdating)="updateSection($event)"></app-section-table>
-  </form>
-</mat-card>
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Capacity</mat-label>
+              <input matInput type="number" placeholder="Venue capacity" formControlName="capacity">
+              <mat-icon matPrefix class="field-icon">people</mat-icon>
+              <mat-error *ngIf="venueForm.get('capacity')?.invalid && venueForm.get('capacity')?.touched">
+                Capacity is required and must be greater than 0
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Venue Type</mat-label>
+            <mat-select formControlName="venueTypeID">
+              <mat-option *ngFor="let item of venueTypes" [value]="item.id">
+                {{ item.name }}
+              </mat-option>
+            </mat-select>
+            <mat-icon matPrefix class="field-icon">category</mat-icon>
+            <mat-error *ngIf="venueForm.get('venueTypeID')?.invalid && venueForm.get('venueTypeID')?.touched">
+              Venue Type is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="action-buttons">
+          <button mat-raised-button color="primary" class="action-button" type="submit">
+            <mat-icon>{{editMode ? "save" : "add"}}</mat-icon>
+            {{editMode ? "Update Venue" : "Create Venue"}}
+          </button>
+          
+          <button mat-stroked-button color="accent" class="action-button" type="button" (click)="toggleSectionTable()">
+            <mat-icon>{{ showSectionTable ? 'visibility_off' : 'list' }}</mat-icon>
+            {{ showSectionTable ? 'Hide Sections' : 'Manage Sections' }}
+          </button>
+          
+          <button mat-stroked-button color="primary" class="action-button" type="button" (click)="toggleSectionForm()">
+            <mat-icon>{{ showSectionForm ? 'remove' : 'add_box' }}</mat-icon>
+            {{ showSectionForm ? 'Hide Section Form' : 'Add Section' }}
+          </button>
+        </div>
+
+        <app-section-form *ngIf="showSectionForm" (toBeAdded)="addSection($event)"></app-section-form>
+        <app-section-table *ngIf="showSectionTable" [sections]="displayedSections"
+          (removeSection)="deleteSection($event)" (finishUpdating)="updateSection($event)"></app-section-table>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

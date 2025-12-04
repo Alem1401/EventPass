@@ -1,4 +1,4 @@
-export interface Event {
+export interface ResponseEventDto {
   id: number;
   name: string;
   description: string;
@@ -17,7 +17,7 @@ export interface Event {
   venueName: string;
 }
 
-export interface EventCreate {
+export interface CreateEventDto {
   name: string;
   description: string;
   bannerURL: string;
@@ -31,7 +31,7 @@ export interface EventCreate {
   venueID: number;
 }
 
-export interface EventUpdate {
+export interface UpdateEventDto {
   name: string;
   description: string;
   bannerURL: string;

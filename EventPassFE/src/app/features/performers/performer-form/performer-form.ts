@@ -16,6 +16,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { CreatePerformerDto } from '../../../core/dtos/performers/CreatePerformerDto';
 import { UpdatePerformerDto } from '../../../core/dtos/performers/UpdatePerformerDto';
 import { Performer } from '../../../core/models/performer.model';
@@ -40,7 +42,9 @@ const urlPattern =
     MatIconModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDividerModule,
+    MatTooltipModule
   ]
 })
 export class PerformerFormComponent implements OnInit {

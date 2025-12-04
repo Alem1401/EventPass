@@ -8,7 +8,8 @@ import { EventFormComponent } from './features/events/event-form/event-form';
 import { EventListComponent } from './features/events/event-list/event-list';
 import { SponsorFormComponent } from './features/sponsors/sponsor-form/sponsor-form';
 import { VenueForm } from "./features/venues/venue-form/venue-form";
-
+import { EventCardComponent } from "./features/landingpage/event-card/event-card";
+import { LandingPageComponent } from './features/landingpage/landing-page/landing-page';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,8 @@ import { VenueForm } from "./features/venues/venue-form/venue-form";
     EventListComponent,
     SponsorFormComponent,
     VenueForm,
-  
+    EventCardComponent,
+    LandingPageComponent
 ],
   templateUrl: './app.html',
   styleUrl: './app.css'

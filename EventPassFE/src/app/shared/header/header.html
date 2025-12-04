@@ -1,10 +1,29 @@
-<mat-toolbar class="mat-toolbar">
-  <span class="logo">EventPass</span>
-  <span class="spacer"></span>
+<mat-toolbar class="enterprise-toolbar" elevation="2">
+  <div class="toolbar-container">
+    <div class="logo-section">
+      <mat-icon class="logo-icon">confirmation_number</mat-icon>
+      <span class="logo-text">EventPass</span>
+    </div>
+    
+    <span class="spacer"></span>
 
- @if(currentUser === null){
-  <button mat-button routerLink="auth/register">Signup</button>
-  <button mat-raised-button color="accent" routerLink="auth/login" >Login</button>
-}
-@else 
-{<span >{{ currentUser.name }}</span>}
+    <div class="user-actions">
+      @if(currentUser === null){
+        <button mat-button class="nav-button" routerLink="auth/register">
+          <mat-icon>person_add</mat-icon>
+          Sign Up
+        </button>
+        <button mat-raised-button color="accent" class="login-button" routerLink="auth/login">
+          <mat-icon>login</mat-icon>
+          Login
+        </button>
+      }
+      @else {
+        <div class="user-info">
+          <mat-icon class="user-icon">account_circle</mat-icon>
+          <span class="username">{{ currentUser.name }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</mat-toolbar>

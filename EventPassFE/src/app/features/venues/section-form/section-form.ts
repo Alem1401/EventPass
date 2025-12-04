@@ -2,6 +2,8 @@ import { Component,Output,EventEmitter,Input, OnChanges, SimpleChanges } from '@
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { MatError } from '@angular/material/form-field';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Validator } from '@angular/forms';
@@ -11,7 +13,7 @@ import { responseSectionDto } from '../../../core/dtos/venue/response-section.dt
 
 @Component({
   selector: 'app-section-form',
-  imports: [MatCardModule, MatInputModule, MatFormFieldModule, MatError, ReactiveFormsModule],
+  imports: [MatCardModule, MatInputModule, MatFormFieldModule, MatError, ReactiveFormsModule, MatIconModule, MatButtonModule],
   templateUrl: './section-form.html',
   styleUrl: './section-form.css',
 })

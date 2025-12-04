@@ -1,31 +1,103 @@
 import { Routes } from '@angular/router';
-import { RegisterComponent } from './features/auth/register/register';
-import { LoginComponent } from './features/auth/login/login';
-import { EventFormComponent } from './features/events/event-form/event-form';
-import { EventListComponent } from './features/events/event-list/event-list';
-import { SponsorFormComponent } from './features/sponsors/sponsor-form/sponsor-form';
-import { SponsorsListComponent } from './features/sponsors/sponsor-list/sponsor-list';
-import { PerformerFormComponent } from './features/performers/performer-form/performer-form';
-import { PerformerListComponent } from './features/performers/performer-list/performer-list';
-import { VenueForm } from './features/venues/venue-form/venue-form';
-import { TickettypeListComponent } from './features/tickettypes/tickettype-list/tickettype-list';
-import { TickettypeForm } from './features/tickettypes/tickettype-form/tickettype-form';
 
 export const routes: Routes = [
-    { path: "auth/register", component: RegisterComponent },
-    { path: "auth/login", component: LoginComponent },
-    { path: 'events', component: EventListComponent },
-    { path: 'events/create', component: EventFormComponent },
-    { path: 'events/edit/:id', component: EventFormComponent },
-    { path: 'sponsors/create', component: SponsorFormComponent },
-    { path: 'sponsors/edit/:id', component: SponsorFormComponent },
-    { path: 'sponsors', component: SponsorsListComponent },
-    { path: "performers", component: PerformerListComponent },
-    { path: "performers/create", component: PerformerFormComponent },
-    { path: "performers/edit/:id", component: PerformerFormComponent },
-    { path: "venues/create", component: VenueForm },
-    { path: "events/tickettypes/list/:eventid", component: TickettypeListComponent },
-    {path : "events/tickettypes/create/:eventid",component:TickettypeForm},
-    { path: "venues/edit/:id", component: VenueForm },
-    { path: '', redirectTo: '/auth/register', pathMatch: 'full' }
+    
+    { 
+        path: "auth/register", 
+        loadComponent: () => import('./features/auth/register/register').then(m => m.RegisterComponent)
+    },
+    { 
+        path: "auth/login", 
+        loadComponent: () => import('./features/auth/login/login').then(m => m.LoginComponent)
+    },
+
+    
+    {
+        path: '',
+        loadComponent: () => import('./features/admin/admin-panel/admin-panel').then(m => m.AdminPanelComponent),
+        children: [
+            {
+                path: 'events',
+                children: [
+                    { 
+                        path: '', 
+                        loadComponent: () => import('./features/events/event-list/event-list').then(m => m.EventListComponent)
+                    },
+                    { 
+                        path: 'create', 
+                        loadComponent: () => import('./features/events/event-form/event-form').then(m => m.EventFormComponent)
+                    },
+                    { 
+                        path: 'edit/:id', 
+                        loadComponent: () => import('./features/events/event-form/event-form').then(m => m.EventFormComponent)
+                    },
+                    {
+                        path: 'tickettypes',
+                        children: [
+                            { 
+                                path: 'list/:eventid', 
+                                loadComponent: () => import('./features/tickettypes/tickettype-list/tickettype-list').then(m => m.TickettypeListComponent)
+                            },
+                            { 
+                                path: 'create/:eventid', 
+                                loadComponent: () => import('./features/tickettypes/tickettype-form/tickettype-form').then(m => m.TickettypeForm)
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                path: 'sponsors',
+                children: [
+                    { 
+                        path: '', 
+                        loadComponent: () => import('./features/sponsors/sponsor-list/sponsor-list').then(m => m.SponsorsListComponent)
+                    },
+                    { 
+                        path: 'create', 
+                        loadComponent: () => import('./features/sponsors/sponsor-form/sponsor-form').then(m => m.SponsorFormComponent)
+                    },
+                    { 
+                        path: 'edit/:id', 
+                        loadComponent: () => import('./features/sponsors/sponsor-form/sponsor-form').then(m => m.SponsorFormComponent)
+                    }
+                ]
+            },
+            {
+                path: 'performers',
+                children: [
+                    { 
+                        path: '', 
+                        loadComponent: () => import('./features/performers/performer-list/performer-list').then(m => m.PerformerListComponent)
+                    },
+                    { 
+                        path: 'create', 
+                        loadComponent: () => import('./features/performers/performer-form/performer-form').then(m => m.PerformerFormComponent)
+                    },
+                    { 
+                        path: 'edit/:id', 
+                        loadComponent: () => import('./features/performers/performer-form/performer-form').then(m => m.PerformerFormComponent)
+                    }
+                ]
+            },
+            {
+                path: 'venues',
+                children: [
+                    { 
+                        path: 'create', 
+                        loadComponent: () => import('./features/venues/venue-form/venue-form').then(m => m.VenueForm)
+                    },
+                    { 
+                        path: 'edit/:id', 
+                        loadComponent: () => import('./features/venues/venue-form/venue-form').then(m => m.VenueForm)
+                    }
+                ]
+            },
+            
+            { path: '', redirectTo: 'events', pathMatch: 'full' }
+        ]
+    },
+    
+    
+    
 ];

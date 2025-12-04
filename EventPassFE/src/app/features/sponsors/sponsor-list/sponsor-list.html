@@ -1,57 +1,142 @@
-<mat-card class="sponsors-card">
-  <h2 class="title">Sponsors</h2>
+<div class="list-container">
+  <mat-card class="enterprise-list-card" elevation="3">
+    <mat-card-header class="list-card-header">
+      <div class="header-content">
+        <div class="header-left">
+          <mat-icon class="header-icon">business</mat-icon>
+          <div>
+            <mat-card-title class="list-card-title">Sponsors Management</mat-card-title>
+            <mat-card-subtitle class="list-card-subtitle">View and manage event sponsors</mat-card-subtitle>
+          </div>
+        </div>
+        <button mat-raised-button color="primary" (click)="onAddSponsorClick()" class="create-button">
+          <mat-icon>add</mat-icon>
+          New Sponsor
+        </button>
+      </div>
+    </mat-card-header>
 
-  <div class="spinner-wrapper" *ngIf="loading">
-    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-  </div>
+    <mat-card-content class="list-card-content">
+      <div class="table-wrapper">
+        <table mat-table [dataSource]="sponsors" class="enterprise-table">
 
-  <table mat-table [dataSource]="sponsors" class="mat-elevation-z8" *ngIf="!loading">
-
-    <ng-container matColumnDef="logo">
-      <th mat-header-cell *matHeaderCellDef> Logo </th>
-      <td mat-cell *matCellDef="let sponsor">
-        <img *ngIf="sponsor.logoUrl" [src]="sponsor.logoUrl" class="logo">
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let sponsor"> {{ sponsor.name }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="website">
-      <th mat-header-cell *matHeaderCellDef> Website </th>
-      <td mat-cell *matCellDef="let sponsor">
-        <a [href]="sponsor.websiteUrl" target="_blank">{{ sponsor.websiteUrl }}</a>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef> Email </th>
-      <td mat-cell *matCellDef="let sponsor"> {{ sponsor.email }} </td> 
-    </ng-container>
-
-    <ng-container matColumnDef="phone">
-      <th mat-header-cell *matHeaderCellDef> Phone </th>
-      <td mat-cell *matCellDef="let sponsor"> {{ sponsor.phone }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <ng-container matColumnDef="logo">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">
+                <mat-icon class="column-icon">image</mat-icon>
+                Logo
+              </div>
+            </th>
             <td mat-cell *matCellDef="let sponsor">
-            <button mat-icon-button color="primary" (click)="onEditSponsor(sponsor.id)">
-            <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button color="warn" (click)="onClickDelete(sponsor.id)">
-            <mat-icon>delete</mat-icon>
-            </button>
-        </td>
-    </ng-container>
+              <div class="logo-cell">
+                <div class="logo-wrapper" *ngIf="sponsor.logoUrl">
+                  <img [src]="sponsor.logoUrl" [alt]="sponsor.name">
+                </div>
+                <div class="logo-placeholder" *ngIf="!sponsor.logoUrl">
+                  <mat-icon>business</mat-icon>
+                </div>
+              </div>
+            </td>
+          </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <button mat-raised-button color="primary" class="add-btn"(click)="onAddSponsorClick()">
-    Add sponsor
-    </button>
-</mat-card>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">
+                <mat-icon class="column-icon">business_center</mat-icon>
+                Sponsor Name
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let sponsor">
+              <span class="sponsor-name">{{ sponsor.name }}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="website">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">
+                <mat-icon class="column-icon">language</mat-icon>
+                Website
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let sponsor">
+              <a *ngIf="sponsor.websiteUrl" [href]="sponsor.websiteUrl" target="_blank" rel="noopener" class="website-link">
+                <mat-icon class="link-icon">link</mat-icon>
+                {{ sponsor.websiteUrl }}
+              </a>
+              <span *ngIf="!sponsor.websiteUrl" class="muted-text">
+                <mat-icon class="muted-icon">link_off</mat-icon>
+                No website
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">
+                <mat-icon class="column-icon">email</mat-icon>
+                Email
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let sponsor">
+              <a *ngIf="sponsor.email" [href]="'mailto:' + sponsor.email" class="contact-link">
+                <mat-icon class="contact-icon">email</mat-icon>
+                {{ sponsor.email }}
+              </a>
+              <span *ngIf="!sponsor.email" class="muted-text">—</span>
+            </td> 
+          </ng-container>
+
+          <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">
+                <mat-icon class="column-icon">phone</mat-icon>
+                Phone
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let sponsor">
+              <a *ngIf="sponsor.phone" [href]="'tel:' + sponsor.phone" class="contact-link">
+                <mat-icon class="contact-icon">phone</mat-icon>
+                {{ sponsor.phone }}
+              </a>
+              <span *ngIf="!sponsor.phone" class="muted-text">—</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">Actions</div>
+            </th>
+            <td mat-cell *matCellDef="let sponsor">
+              <div class="action-buttons">
+                <button mat-icon-button color="primary" (click)="onEditSponsor(sponsor.id)" matTooltip="Edit Sponsor">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="onClickDelete(sponsor.id)" matTooltip="Delete Sponsor">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+        </table>
+
+        <div *ngIf="loading" class="loading-state">
+          <mat-spinner diameter="60"></mat-spinner>
+          <p class="loading-text">Loading sponsors...</p>
+        </div>
+
+        <div *ngIf="sponsors.data.length === 0 && !loading" class="empty-state">
+          <mat-icon class="empty-icon">business_center</mat-icon>
+          <h3 class="empty-title">No Sponsors Found</h3>
+          <p class="empty-text">Start by adding your first sponsor</p>
+          <button mat-raised-button color="primary" (click)="onAddSponsorClick()">
+            <mat-icon>add</mat-icon>
+            New Sponsor
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
