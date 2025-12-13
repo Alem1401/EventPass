@@ -1,0 +1,258 @@
+<div class="event-details-container">
+  <!-- Hero Banner Section -->
+  <div class="event-hero">
+    <div class="hero-overlay">
+      <div class="hero-content">
+        <h1 class="event-title">{{currentEvent?.name}}</h1>
+        <div class="event-meta">
+          <mat-chip-set>
+            <mat-chip>
+              <mat-icon>category</mat-icon>
+              {{currentEvent?.categoryName}}
+            </mat-chip>
+            <mat-chip>
+              <mat-icon>calendar_today</mat-icon>
+             {{ currentEvent?.startDate | date:'dd.MM.yyyy' }}
+            </mat-chip>
+            <mat-chip>
+              <mat-icon>schedule</mat-icon>
+              {{ currentEvent?.startDate | date:'HH:mm' }}
+            </mat-chip>
+            <mat-chip>
+              <mat-icon>location_on</mat-icon>
+              {{eventVenue?.name}}
+            </mat-chip>
+          </mat-chip-set>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content-wrapper">
+    <!-- Event Information Card -->
+    <mat-card class="info-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>info</mat-icon>
+        <mat-card-title>Event Information</mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <div class="info-section">
+          <h3>About This Event</h3>
+          <p>
+          {{currentEvent?.description}};
+          </p>
+        </div>
+
+        <mat-divider class="section-divider"></mat-divider>
+
+        <div class="info-section">
+          <h3>Performers</h3>
+          <div class="performers-list">
+            <mat-chip-set>
+              <mat-chip class="performer-chip">
+                <mat-icon>person</mat-icon>
+                {{currentEvent?.performerName}}
+              </mat-chip>
+            </mat-chip-set>
+          </div>
+        </div>
+
+        <mat-divider class="section-divider"></mat-divider>
+
+        <div class="info-section">
+          <h3>Venue Details</h3>
+          <div class="venue-info">
+            <div class="info-row">
+              <mat-icon>location_on</mat-icon>
+              <div>
+                <strong>{{eventVenue?.name}}</strong>
+                <p>{{eventVenue?.address}}</p>
+              </div>
+            </div>
+            <div class="info-row">
+              <mat-icon>people</mat-icon>
+              <div>
+                <strong>Capacity:</strong> {{eventVenue?.capacity}} attendes
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <mat-divider class="section-divider"></mat-divider>
+
+        <div class="info-section">
+          <h3>Event Organizer</h3>
+          <div class="organizer-info">
+            <mat-icon>business</mat-icon>
+            <div>
+              <strong>Live Nation Entertainment</strong>
+              <p>Contact: events@livenation.com | (555) 123-4567</p>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+ 
+    <mat-card class="sponsors-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>star</mat-icon>
+        <mat-card-title>Event Sponsors</mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <div class="sponsors-grid">
+          <div class="sponsor-item">
+            <mat-icon>business</mat-icon>
+            <p>Coca-Cola</p>
+          </div>
+          <div class="sponsor-item">
+            <mat-icon>business</mat-icon>
+            <p>Nike</p>
+          </div>
+          <div class="sponsor-item">
+            <mat-icon>business</mat-icon>
+            <p>Samsung</p>
+          </div>
+          <div class="sponsor-item">
+            <mat-icon>business</mat-icon>
+            <p>Spotify</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Ticket Selection Section -->
+    <mat-card class="tickets-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="ticket-icon">confirmation_number</mat-icon>
+        <mat-card-title>Select Your Tickets</mat-card-title>
+        <mat-card-subtitle>Choose from available ticket types below</mat-card-subtitle>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <div class="tickets-filter-section">
+          <mat-form-field appearance="outline">
+            <mat-label>Sort By</mat-label>
+            <mat-select (selectionChange)="orderTickets($event)">
+              <mat-option value="price-high-low">
+                <mat-icon>arrow_downward</mat-icon>
+                Price: High to Low
+              </mat-option>
+              <mat-option value="price-low-high">
+                <mat-icon>arrow_upward</mat-icon>
+                Price: Low to High
+              </mat-option>
+              <mat-option value="name-az">
+                <mat-icon>sort_by_alpha</mat-icon>
+                Section: A-Z
+              </mat-option>
+              <mat-option value="name-za">
+                <mat-icon>sort_by_alpha</mat-icon>
+                Section: Z-A
+              </mat-option>
+              <mat-option value="available-high-low">
+                <mat-icon>inventory</mat-icon>
+                Availability: High to Low
+              </mat-option>
+              <mat-option value="available-low-high">
+                <mat-icon>inventory</mat-icon>
+                Availability: Low to High
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="tickets-table-container">
+          <!-- removed legacy sample table; using ticketTypes table below -->
+
+         
+          <table mat-table [dataSource]="ticketTypes" class="tickets-table">
+            <ng-container matColumnDef="type">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-icon>category</mat-icon>
+                Section
+              </th>
+              <td mat-cell *matCellDef="let ticket">
+                <div class="ticket-type-cell">
+                  <strong>{{ ticket.sectionName }}</strong>
+                  <p class="ticket-description">{{ ticket.eventName || currentEvent?.name }}</p>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-icon>payments</mat-icon>
+                Price
+              </th>
+              <td mat-cell *matCellDef="let ticket">
+                <span class="price-tag">${{ ticket.price }}</span>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="available">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-icon>inventory</mat-icon>
+                Available
+              </th>
+              <td mat-cell *matCellDef="let ticket">
+                <mat-chip [class.low-stock]="ticket.ticketsRemaining < 50" [class.sold-out]="ticket.ticketsRemaining === 0">
+                  {{ ticket.ticketsRemaining }} left
+                </mat-chip>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="quantity">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-icon>shopping_cart</mat-icon>
+                Quantity
+              </th>
+              <td mat-cell *matCellDef="let ticket">
+                  <div class="quantity-selector">
+                    <button mat-icon-button color="primary" (click)="decrement(ticket.id)" [disabled]="getQuantity(ticket.id) === 0">
+                      <mat-icon>remove</mat-icon>
+                    </button>
+                    <span class="quantity-display">{{ getQuantity(ticket.id) }}</span>
+                    <button mat-icon-button color="primary" (click)="increment(ticket.id, ticket.ticketsRemaining)" [disabled]="getQuantity(ticket.id) >= ticket.ticketsRemaining">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                  </div>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>Action</th>
+              <td mat-cell *matCellDef="let ticket">
+                <button 
+                  mat-raised-button 
+                  color="primary" 
+                  [disabled]="ticket.ticketsRemaining === 0 || getQuantity(ticket.id) === 0"
+                  (click)="addToCart(ticket.id)">
+                  <mat-icon>add_shopping_cart</mat-icon>
+                  Add to Cart
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="ticket-row"></tr>
+          </table>
+        </div>
+
+        <div class="ticket-notes">
+          <mat-icon>info</mat-icon>
+          <p>All ticket sales are final. Prices include applicable taxes and fees.</p>
+        </div>
+      </mat-card-content>
+      <mat-card-actions class="checkout-actions">
+        <button mat-raised-button color="accent" class="checkout-btn" (click)="downloadPdf(1)">
+          <mat-icon>shopping_cart</mat-icon>
+          Proceed to Checkout
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

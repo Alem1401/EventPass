@@ -19,6 +19,7 @@ namespace EventPass.Application.Queries.Users.GetByEmail
             if (response == null) return null;
             return new ResponseUserDto
             {
+                Id = response.Id,
                 Name = response.Name,
                 Surname = response.Surname,
                 Email = response.Email

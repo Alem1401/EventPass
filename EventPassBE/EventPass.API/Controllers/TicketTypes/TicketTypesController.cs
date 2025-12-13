@@ -3,6 +3,7 @@ using EventPass.Application.Commands.TicketTypes.Delete;
 using EventPass.Application.Commands.TicketTypes.Update;
 using EventPass.Application.DTOs.TicketDTOs;
 using EventPass.Application.Queries.TicketTypes.GetAll;
+using EventPass.Application.Queries.TicketTypes.GetTicketTypesInOrder;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -88,5 +89,16 @@ namespace EventPass.API.Controllers.TicketTypes
             var result = await _mediatr.Send(new Application.Queries.TicketTypes.GetTicketTypeByEventQuery.GetTicketTypesByEventQuery { Id = id }, ct);
             return Ok(result);
         }
+
+        [HttpGet("ByEvent/{id}/order")]
+
+        public async Task<ActionResult<IEnumerable<ResponseTicketTypeDTO>>> GetByEventOrdered(int id, [FromQuery] string orderBy, CancellationToken ct)
+        {
+       
+
+            var result = await _mediatr.Send(new GetTicketTypesInOrderQuery { EventId = id, OrderBy = orderBy}, ct);
+            return Ok(result);
+        }
+
     }
 }

@@ -5,7 +5,7 @@ namespace EventPass.Application.Commands.Users.Update
 {
     public class UpdateUserCommand : IRequest<ResponseUserDto>
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public UpdateUserDto dto { get; set; }  
     }
 }

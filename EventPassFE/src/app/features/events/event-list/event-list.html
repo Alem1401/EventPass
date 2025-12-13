@@ -9,7 +9,7 @@
             <mat-card-subtitle class="list-card-subtitle">View and manage all events</mat-card-subtitle>
           </div>
         </div>
-        <button mat-raised-button color="primary" routerLink="/events/create" class="create-button">
+        <button mat-raised-button color="primary" (click)="createEvent()" class="create-button">
           <mat-icon>add</mat-icon>
           Create Event
         </button>
@@ -20,7 +20,7 @@
       <div class="search-section">
         <mat-form-field appearance="outline" class="search-field">
           <mat-label>Search Events</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Search by name, category, or organizer">
+          <input matInput [formControl]="filterControl" placeholder="Search by name, category, or organizer">
           <mat-icon matPrefix class="search-icon">search</mat-icon>
         </mat-form-field>
       </div>
@@ -103,7 +103,7 @@
             </th>
             <td mat-cell *matCellDef="let event">
               <div class="action-buttons">
-                <button mat-icon-button color="primary" [routerLink]="['/events/edit', event.id]"
+                <button mat-icon-button color="primary" (click)="editEvent(event.id)"
                         matTooltip="Edit Event">
                   <mat-icon>edit</mat-icon>
                 </button>
@@ -119,12 +119,12 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
         </table>
 
-        <div *ngIf="isLoading" class="loading-state">
+        <div *ngIf="loading" class="loading-state">
           <mat-spinner diameter="60"></mat-spinner>
           <p class="loading-text">Loading events...</p>
         </div>
 
-        <div *ngIf="dataSource.data.length === 0 && !isLoading" class="empty-state">
+        <div *ngIf="dataSource.data.length === 0 && !loading" class="empty-state">
           <mat-icon class="empty-icon">event_busy</mat-icon>
           <h3 class="empty-title">No Events Found</h3>
           <p class="empty-text">Get started by creating your first event</p>

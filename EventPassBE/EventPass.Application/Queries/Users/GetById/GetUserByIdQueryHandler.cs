@@ -24,6 +24,7 @@ namespace EventPass.Application.Queries.Users.GetById
             {
                 var response = new ResponseUserDto()
                 {
+                    Id = user.Id,
                     Name = user.Name,
                     Surname = user.Surname,
                     Email = user.Email,

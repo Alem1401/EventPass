@@ -68,10 +68,7 @@
       <div *ngIf="!loading && filteredEvents.length > 0" class="events-grid">
         <app-event-card 
           *ngFor="let event of filteredEvents"
-          [eventName]="event.name"
-          [eventDate]="event.startDate"
-          [eventDescription]="event.description"
-          [bannerUrl]="event.bannerURL">
+          [event]="event">
         </app-event-card>
       </div>
 

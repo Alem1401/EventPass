@@ -1,7 +1,20 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-    
+    // Landing page as default route
+    {
+        path: '',
+        loadComponent: () => import('./features/landingpage/landing-page/landing-page').then(m => m.LandingPageComponent),
+        pathMatch: 'full'
+    },
+
+    // Public event details page
+    {
+        path: 'events/details/:id',
+        loadComponent: () => import('./features/events/event-details/event-details').then(m => m.EventDetailsComponent)
+    },
+
+    // Auth routes
     { 
         path: "auth/register", 
         loadComponent: () => import('./features/auth/register/register').then(m => m.RegisterComponent)
@@ -11,9 +24,9 @@ export const routes: Routes = [
         loadComponent: () => import('./features/auth/login/login').then(m => m.LoginComponent)
     },
 
-    
+    // Admin panel with nested routes
     {
-        path: '',
+        path: 'admin',
         loadComponent: () => import('./features/admin/admin-panel/admin-panel').then(m => m.AdminPanelComponent),
         children: [
             {
@@ -84,6 +97,10 @@ export const routes: Routes = [
                 path: 'venues',
                 children: [
                     { 
+                        path: '', 
+                        loadComponent: () => import('./features/venues/venue-list/venue-list').then(m => m.VenueListComponent)
+                    },
+                    { 
                         path: 'create', 
                         loadComponent: () => import('./features/venues/venue-form/venue-form').then(m => m.VenueForm)
                     },
@@ -93,11 +110,17 @@ export const routes: Routes = [
                     }
                 ]
             },
+            {
+                path: 'users',
+                children: [
+                    { 
+                        path: '', 
+                        loadComponent: () => import('./features/users/user-list/user-list').then(m => m.UserListComponent)
+                    }
+                ]
+            },
             
             { path: '', redirectTo: 'events', pathMatch: 'full' }
         ]
-    },
-    
-    
-    
+    }
 ];

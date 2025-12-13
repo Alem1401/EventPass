@@ -83,7 +83,7 @@ public class UsersController : ControllerBase
     [HttpPut("{id}")]
     public async Task<ActionResult<ResponseVenueDto>> Update(int id, UpdateUserDto userDto,  CancellationToken ct)
     {
-        var response = await _mediator.Send(new UpdateUserCommand { id = id, dto = userDto }, ct);
+        var response = await _mediator.Send(new UpdateUserCommand { Id = id, dto = userDto }, ct);
         return Ok(response);
     }
 

@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TruncatePipe } from '../../../core/pipes/truncate.pipe';
+import { ResponseEventDto } from '../../../core/models/event.model';
 
 @Component({
   selector: 'app-event-card',
@@ -21,8 +22,5 @@ import { TruncatePipe } from '../../../core/pipes/truncate.pipe';
   styleUrls: ['./event-card.css']
 })
 export class EventCardComponent {
-  @Input() eventName?: string;
-  @Input() eventDate?: string;
-  @Input() eventDescription?: string;
-  @Input() bannerUrl?: string;
+  @Input() event?: ResponseEventDto;
 }

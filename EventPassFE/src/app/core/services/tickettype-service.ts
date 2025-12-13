@@ -26,4 +26,8 @@ export class TickettypeService {
   deleteTicketType(ticketTypeId : number){
     return this.http.delete(`https://localhost:7231/api/TicketTypes/${ticketTypeId}`)
   }
+
+  orderTicketType(eventId: number,orderBy : string){
+    return this.http.get<ResponseTicketTypeDto[]>(`https://localhost:7231/api/TicketTypes/ByEvent/${eventId}/order?orderBy=${orderBy}`)
+  }
 }

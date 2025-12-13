@@ -12,5 +12,7 @@ namespace EventPass.Application.DTOs.TicketDTOs
         public int UserId { get; set; }
         public int ticketNumber { get; set; }
         public int ticketTypeId { get; set; }
+
+    
     }
 }

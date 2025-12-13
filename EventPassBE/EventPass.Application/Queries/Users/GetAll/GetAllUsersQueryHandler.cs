@@ -21,6 +21,7 @@ namespace EventPass.Application.Queries.Users.GetAll
             {
                 response.Add(new ResponseUserDto
                 {
+                    Id = item.Id,
                     Name = item.Name,
                     Surname = item.Surname,
                     Email = item.Email 

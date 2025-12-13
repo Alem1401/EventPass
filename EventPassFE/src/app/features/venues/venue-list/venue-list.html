@@ -1,0 +1,124 @@
+<div class="list-container">
+  <mat-card class="enterprise-list-card" elevation="3">
+    <mat-card-header class="list-card-header">
+      <div class="header-content">
+        <div class="header-left">
+          <mat-icon class="header-icon">location_city</mat-icon>
+          <div>
+            <mat-card-title class="list-card-title">Venues Management</mat-card-title>
+            <mat-card-subtitle class="list-card-subtitle">View and manage all venues</mat-card-subtitle>
+          </div>
+        </div>
+        <button mat-raised-button color="primary" (click)="createVenue()" class="create-button">
+          <mat-icon>add</mat-icon>
+          Create Venue
+        </button>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content class="list-card-content">
+      <div class="search-section">
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-label>Search Venues</mat-label>
+          <input matInput [formControl]="filterControl" placeholder="Search by name, location, or type">
+          <mat-icon matPrefix class="search-icon">search</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="table-wrapper">
+        <table mat-table [dataSource]="dataSource" class="enterprise-table">
+          
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">
+                <mat-icon class="column-icon">domain</mat-icon>
+                Venue Name
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let venue" class="name-cell">
+              <span class="venue-name">{{ venue.name }}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="location">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">
+                <mat-icon class="column-icon">place</mat-icon>
+                Location
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let venue">
+              <div class="location-cell">
+                <mat-icon class="location-icon">map</mat-icon>
+                {{ venue.city }}, {{ venue.country }}
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="capacity">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">
+                <mat-icon class="column-icon">group</mat-icon>
+                Capacity
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let venue">
+              <mat-chip class="capacity-chip">
+                <mat-icon class="chip-icon">groups</mat-icon>
+                {{ venue.capacity | number }}
+              </mat-chip>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">
+                <mat-icon class="column-icon">category</mat-icon>
+                Type
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let venue">
+              <mat-chip class="type-chip">{{ venue.type }}</mat-chip>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">Actions</div>
+            </th>
+            <td mat-cell *matCellDef="let venue">
+              <div class="action-buttons">
+                <button mat-icon-button color="primary" (click)="editVenue(venue.id)"
+                        matTooltip="Edit Venue">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteVenue(venue.id)"
+                        matTooltip="Delete Venue">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+        </table>
+
+        <div *ngIf="loading" class="loading-state">
+          <mat-spinner diameter="60"></mat-spinner>
+          <p class="loading-text">Loading venues...</p>
+        </div>
+
+        <div *ngIf="dataSource.data.length === 0 && !loading" class="empty-state">
+          <mat-icon class="empty-icon">location_city_off</mat-icon>
+          <h3 class="empty-title">No Venues Found</h3>
+          <p class="empty-text">Get started by creating your first venue</p>
+          <button mat-raised-button color="primary" (click)="createVenue()">
+            <mat-icon>add</mat-icon>
+            Create Venue
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

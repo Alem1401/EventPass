@@ -1,0 +1,126 @@
+<div class="list-container">
+  <mat-card class="enterprise-list-card" elevation="3">
+    <mat-card-header class="list-card-header">
+      <div class="header-content">
+        <div class="header-left">
+          <mat-icon class="header-icon">people</mat-icon>
+          <div>
+            <mat-card-title class="list-card-title">Users Management</mat-card-title>
+            <mat-card-subtitle class="list-card-subtitle">View and manage all users</mat-card-subtitle>
+          </div>
+        </div>
+        <button mat-raised-button color="primary" routerLink="/users/create" class="create-button">
+          <mat-icon>add</mat-icon>
+          Create User
+        </button>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content class="list-card-content">
+      <div class="search-section">
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-label>Search Users</mat-label>
+          <input matInput [formControl]="filterControl" placeholder="Search by name, surname, or email">
+          <mat-icon matPrefix class="search-icon">search</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="table-wrapper" *ngIf="!loading">
+        <table mat-table [dataSource]="dataSource" matSort class="enterprise-table">
+          
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="header-cell">
+                <mat-icon class="column-icon">person</mat-icon>
+                Name
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let user" class="name-cell">
+              <span class="user-name">{{ user.name }}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="surname">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="header-cell">
+                <mat-icon class="column-icon">badge</mat-icon>
+                Surname
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let user">
+              <span class="user-surname">{{ user.surname }}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div class="header-cell">
+                <mat-icon class="column-icon">email</mat-icon>
+                Email
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let user">
+              <div class="email-cell">
+                <mat-icon class="email-icon">alternate_email</mat-icon>
+                {{ user.email }}
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="header-cell">
+                <mat-icon class="column-icon">settings</mat-icon>
+                Actions
+              </div>
+            </th>
+            <td mat-cell *matCellDef="let user">
+              <div class="action-buttons">
+                <button 
+                  mat-icon-button 
+                  color="primary"
+                  (click)="edit(user.id)"
+                  matTooltip="Edit User"
+                  class="action-btn edit-btn">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button 
+                  mat-icon-button 
+                  color="warn"
+                  (click)="delete(user.id)"
+                  matTooltip="Delete User"
+                  class="action-btn delete-btn">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+
+          <tr class="mat-row no-data-row" *matNoDataRow>
+            <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+              <div class="no-data">
+                <mat-icon class="no-data-icon">people_outline</mat-icon>
+                <p class="no-data-text">No users found</p>
+                <p class="no-data-subtext">Try adjusting your search or create a new user</p>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <mat-paginator 
+          [pageSizeOptions]="[5, 10, 25, 50]"
+          showFirstLastButtons
+          class="enterprise-paginator">
+        </mat-paginator>
+      </div>
+
+      <div class="loading-spinner" *ngIf="loading">
+        <mat-spinner diameter="60"></mat-spinner>
+        <p class="loading-text">Loading users...</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -3,6 +3,7 @@ using EventPass.Application.Commands.Tickets.Delete;
 using EventPass.Application.DTOs.TicketDTOs;
 using EventPass.Application.Queries.Tickets.GetAll;
 using EventPass.Application.Queries.Tickets.GetByEvent;
+using EventPass.Application.Queries.Tickets.GetTicketPdf;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -49,16 +50,18 @@ namespace EventPass.API.Controllers.Tickets
         }
 
 
-        [HttpGet("{eventId}")]
-
+        [HttpGet("event/{eventId}")]
         public async Task<ActionResult<IEnumerable<ResponseTicketDTO>>> getByEvent(int eventId,CancellationToken ct)
         {
-
             var result =await _mediatr.Send(new GetTicketsByEventQuery { EventId = eventId }, ct);
             return Ok(result);
+        }
 
-
-
+        [HttpGet("pdf/{ticketId}")]
+        public async Task<IActionResult> getPdf(int ticketId, CancellationToken ct)
+        {
+            var result = await _mediatr.Send(new GetTicketPdfQuery(ticketId), ct);
+            return File(result, "application/pdf", $"Ticket_{ticketId}.pdf");
         }
 
 

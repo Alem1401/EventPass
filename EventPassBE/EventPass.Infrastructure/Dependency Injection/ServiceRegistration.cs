@@ -1,6 +1,7 @@
 ﻿using EventPass.Domain.Interfaces.Security;
 using EventPass.Domain.Interfaces.Services;
 using EventPass.Infrastructure.Security;
+using EventPass.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EventPass.Infrastructure.Dependency_Injection
@@ -11,7 +12,8 @@ namespace EventPass.Infrastructure.Dependency_Injection
         {
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IJwtService, JwtService>();
-
+            services.AddScoped<IPdfService, PdfService>();  
+            services.AddScoped<IQrService, QrService>();
             return services;
         }
     }

@@ -18,7 +18,7 @@ namespace EventPass.Application.Commands.Users.Update
 
         public async Task<ResponseUserDto> Handle(UpdateUserCommand user, CancellationToken ct)
         {
-            var userToUpdate = await _repository.GetUserByIdAsync(user.id, ct);
+            var userToUpdate = await _repository.GetUserByIdAsync(user.Id, ct);
             if (userToUpdate == null)
             {
                 throw new Exception("User not found");

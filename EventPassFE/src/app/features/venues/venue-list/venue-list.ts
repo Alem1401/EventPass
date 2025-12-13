@@ -14,11 +14,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { ResponseEventDto } from '../../../core/models/event.model';
-import { EventService } from '../../../core/services/event-service';
+import { VenueResponseDto } from '../../../core/dtos/venue/venue-response.dto';
+import { VenueService } from '../../../core/services/venue-service';
 
 @Component({
-  selector: 'app-event-list',
+  selector: 'app-venue-list',
   standalone: true,
   imports: [
     CommonModule,
@@ -35,23 +35,23 @@ import { EventService } from '../../../core/services/event-service';
     MatChipsModule,
     MatTooltipModule
   ],
-  templateUrl: './event-list.html',
-  styleUrls: ['./event-list.css']
+  templateUrl: './venue-list.html',
+  styleUrls: ['./venue-list.css']
 })
-export class EventListComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'startDate', 'endDate', 'category', 'organizer', 'actions'];
-  dataSource = new MatTableDataSource<ResponseEventDto>([]);
+export class VenueListComponent implements OnInit {
+  displayedColumns: string[] = ['name', 'location', 'capacity', 'type', 'actions'];
+  dataSource = new MatTableDataSource<VenueResponseDto>([]);
   loading = true;
   filterControl = new FormControl('');
 
   constructor(
-    private eventService: EventService,
+    private venueService: VenueService,
     private snackBar: MatSnackBar,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.loadEvents();
+    this.loadVenues();
     this.setupFilter();
   }
 
@@ -70,37 +70,38 @@ export class EventListComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  loadEvents(): void {
+  loadVenues(): void {
     this.loading = true;
-    this.eventService.getAllEvents().subscribe({
-      next: (events) => {
-        this.dataSource.data = events;
+    this.venueService.getAllVenues().subscribe({
+      next: (venues) => {
+        this.dataSource.data = venues;
         this.loading = false;
       },
       error: () => {
-        this.snackBar.open('Error loading events', 'Close', { duration: 3000 });
+        this.snackBar.open('Error loading venues', 'Close', { duration: 3000 });
         this.loading = false;
       }
     });
   }
 
-  createEvent(): void {
-    this.router.navigate(['/admin/events/create']);
+  createVenue(): void {
+    this.router.navigate(['/admin/venues/create']);
   }
 
-  editEvent(id: number): void {
-    this.router.navigate(['/admin/events/edit', id]);
+  editVenue(id: number): void {
+    this.router.navigate(['/admin/venues/edit', id]);
   }
 
-  deleteEvent(id: number): void {
-    if (confirm('Are you sure you want to delete this event?')) {
-      this.eventService.deleteEvent(id).subscribe({
+  deleteVenue(id: number): void {
+    if (confirm('Are you sure you want to delete this venue?')) {
+      this.venueService.deleteVenue(id).subscribe({
         next: () => {
-          this.snackBar.open('Event deleted successfully', 'Close', { duration: 3000 });
-          this.loadEvents();
+            
+          this.snackBar.open('Venue deleted successfully', 'Close', { duration: 3000 });
+          this.loadVenues();
         },
         error: () => {
-          this.snackBar.open('Error deleting event', 'Close', { duration: 3000 });
+          this.snackBar.open('Error deleting venue', 'Close', { duration: 3000 });
         }
       });
     }
