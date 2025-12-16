@@ -120,7 +120,7 @@ export class VenueForm implements OnInit {
         });
         this.venueForm.patchValue({
           name: data.name,
-          address: data.address,
+          address: data.adress,
           city: data.city,
           country: data.country,
           postalCode: data.postalCode,

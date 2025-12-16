@@ -4,6 +4,9 @@ import {
   FormGroup,
   Validators,
   ReactiveFormsModule,
+  AsyncValidatorFn,
+  AbstractControl,
+  ValidationErrors,
 } from '@angular/forms';
 import { registerUserDto } from '../../../core/dtos/auth/register-user.dto';
 import { UserService } from '../../../core/services/user-service';
@@ -16,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { isPropertyAssignment } from 'typescript';
 import { Router, RouterModule } from '@angular/router';
+import { Observable, map, catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -40,13 +44,29 @@ export class RegisterComponent {
   registerForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', 
+      [Validators.required, Validators.email],
+      [this.emailExistsValidator()]
+    ),
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
     ]),
     confirmPassword: new FormControl('', Validators.required),
   });
+
+  emailExistsValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      if (!control.value) {
+        return of(null);
+      }
+      
+      return this.userService.userExists(control.value).pipe(
+        map((exists: boolean) => exists ? { emailExists: true } : null),
+        catchError(() => of(null))
+      );
+    };
+  }
 
   passwordValid: boolean = true;
   isStrongPassword(password: string): boolean {

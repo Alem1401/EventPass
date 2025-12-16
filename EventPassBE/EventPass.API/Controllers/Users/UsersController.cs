@@ -57,6 +57,14 @@ public class UsersController : ControllerBase
         return await _mediator.Send(new GetAllUsersQuery(), ct);
     }
 
+    [HttpGet("userExists")]
+
+    public async Task<ActionResult<bool>> UserExists([FromQuery]string email, CancellationToken ct)
+    {
+        var user = await _mediator.Send(new GetUserByEmailQuery { email = email }, ct);
+        return Ok(user != null);
+    }
+
     [HttpGet("{id}")]
     public async Task<ActionResult<ResponseUserDto>> getUserById(int id, CancellationToken ct)
     {

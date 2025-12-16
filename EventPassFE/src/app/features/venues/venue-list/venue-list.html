@@ -36,7 +36,10 @@
               </div>
             </th>
             <td mat-cell *matCellDef="let venue" class="name-cell">
-              <span class="venue-name">{{ venue.name }}</span>
+              <span *ngIf="!isEditing(venue.id)" class="venue-name">{{ venue.name }}</span>
+              <mat-form-field *ngIf="isEditing(venue.id)" appearance="outline" class="inline-edit-field">
+                <input matInput [formControl]="$any(editForms[venue.id].get('name'))" placeholder="Venue Name">
+              </mat-form-field>
             </td>
           </ng-container>
 
@@ -48,9 +51,17 @@
               </div>
             </th>
             <td mat-cell *matCellDef="let venue">
-              <div class="location-cell">
+              <div *ngIf="!isEditing(venue.id)" class="location-cell">
                 <mat-icon class="location-icon">map</mat-icon>
                 {{ venue.city }}, {{ venue.country }}
+              </div>
+              <div *ngIf="isEditing(venue.id)" class="inline-edit-location">
+                <mat-form-field appearance="outline" class="inline-edit-field-small">
+                  <input matInput [formControl]="$any(editForms[venue.id].get('city'))" placeholder="City">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="inline-edit-field-small">
+                  <input matInput [formControl]="$any(editForms[venue.id].get('country'))" placeholder="Country">
+                </mat-form-field>
               </div>
             </td>
           </ng-container>
@@ -63,10 +74,13 @@
               </div>
             </th>
             <td mat-cell *matCellDef="let venue">
-              <mat-chip class="capacity-chip">
+              <mat-chip *ngIf="!isEditing(venue.id)" class="capacity-chip">
                 <mat-icon class="chip-icon">groups</mat-icon>
                 {{ venue.capacity | number }}
               </mat-chip>
+              <mat-form-field *ngIf="isEditing(venue.id)" appearance="outline" class="inline-edit-field-small">
+                <input matInput type="number" [formControl]="$any(editForms[venue.id].get('capacity'))" placeholder="Capacity">
+              </mat-form-field>
             </td>
           </ng-container>
 
@@ -78,7 +92,14 @@
               </div>
             </th>
             <td mat-cell *matCellDef="let venue">
-              <mat-chip class="type-chip">{{ venue.type }}</mat-chip>
+              <mat-chip *ngIf="!isEditing(venue.id)" class="type-chip">{{ venue.venueType }}</mat-chip>
+              <mat-form-field *ngIf="isEditing(venue.id)" appearance="outline" class="inline-edit-field-small">
+                <mat-select [formControl]="$any(editForms[venue.id].get('venueTypeID'))">
+                  <mat-option *ngFor="let item of venueTypes" [value]="item.id">
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
             </td>
           </ng-container>
 
@@ -88,20 +109,40 @@
             </th>
             <td mat-cell *matCellDef="let venue">
               <div class="action-buttons">
-                <button mat-icon-button color="primary" (click)="editVenue(venue.id)"
-                        matTooltip="Edit Venue">
-                  <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-icon-button color="warn" (click)="deleteVenue(venue.id)"
-                        matTooltip="Delete Venue">
-                  <mat-icon>delete</mat-icon>
-                </button>
+                <!-- Normal view mode buttons -->
+                <ng-container *ngIf="!isEditing(venue.id)">
+                  <button mat-icon-button color="accent" (click)="startQuickEdit(venue)"
+                          matTooltip="Quick Edit" class="quick-edit-btn">
+                    <mat-icon>edit_note</mat-icon>
+                  </button>
+                  <button mat-icon-button color="primary" (click)="editVenue(venue.id)"
+                          matTooltip="Full Edit">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="deleteVenue(venue.id)"
+                          matTooltip="Delete Venue">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </ng-container>
+                <!-- Edit mode buttons -->
+                <ng-container *ngIf="isEditing(venue.id)">
+                  <button mat-icon-button color="primary" (click)="saveQuickEdit(venue)"
+                          matTooltip="Save Changes" class="save-btn">
+                    <mat-icon>save</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="cancelEdit()"
+                          matTooltip="Cancel" class="cancel-btn">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </ng-container>
               </div>
             </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
+              class="table-row" 
+              [class.editing]="isEditing(row.id)"></tr>
         </table>
 
         <div *ngIf="loading" class="loading-state">

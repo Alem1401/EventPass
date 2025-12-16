@@ -37,8 +37,14 @@
             <mat-label>Email Address</mat-label>
             <input matInput type="email" placeholder="Enter your email" formControlName="email" />
             <mat-icon matPrefix class="field-icon">email</mat-icon>
-            <mat-error *ngIf="registerForm.controls.email.invalid && registerForm.controls.email.touched">
+            <mat-error *ngIf="registerForm.controls.email.hasError('required') && registerForm.controls.email.touched">
+              Email is required
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls.email.hasError('email') && !registerForm.controls.email.hasError('required')">
               Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls.email.hasError('emailExists')">
+              This email is already registered
             </mat-error>
           </mat-form-field>
 

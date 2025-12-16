@@ -201,6 +201,86 @@
 .action-buttons {
   display: flex;
   gap: 0.25rem;
+  align-items: center;
+}
+
+.quick-edit-btn {
+  transition: transform 0.2s ease;
+}
+
+.quick-edit-btn:hover {
+  transform: scale(1.1);
+}
+
+.save-btn {
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+.cancel-btn {
+  background-color: rgba(244, 67, 54, 0.1);
+}
+
+/* Inline Editing Styles */
+.inline-edit-field {
+  width: 100%;
+  margin: 0;
+}
+
+.inline-edit-field-small {
+  width: 100%;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.inline-edit-field ::ng-deep .mat-mdc-form-field-infix,
+.inline-edit-field-small ::ng-deep .mat-mdc-form-field-infix {
+  padding: 0.5rem 0;
+  min-height: auto;
+}
+
+.inline-edit-field ::ng-deep .mat-mdc-text-field-wrapper,
+.inline-edit-field-small ::ng-deep .mat-mdc-text-field-wrapper {
+  padding: 0;
+}
+
+.inline-edit-field ::ng-deep .mat-mdc-form-field-subscript-wrapper,
+.inline-edit-field-small ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+.inline-edit-field ::ng-deep .mat-mdc-form-field-error-wrapper {
+  display: none;
+}
+
+.inline-edit-location {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.inline-edit-location .inline-edit-field-small {
+  flex: 1;
+  min-width: 100px;
+}
+
+/* Editing Row Highlight */
+.table-row.editing {
+  background-color: #e3f2fd !important;
+  border-left: 4px solid var(--mat-sys-primary);
+  animation: highlightRow 0.3s ease;
+}
+
+@keyframes highlightRow {
+  0% {
+    background-color: #fff;
+  }
+  100% {
+    background-color: #e3f2fd;
+  }
+}
+
+.table-row.editing td {
+  border-bottom-color: #bbdefb;
 }
 
 /* Loading State */

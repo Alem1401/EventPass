@@ -8,21 +8,52 @@
   </thead>
 
   <tbody>
-    @for (section of sections; track $index) {
-      <tr>
-        <td>{{section.name}}</td>
-        <td>{{section.capacity}}</td>
+    @for (section of sections; track section.id) {
+      <tr [class.editing]="isEditing(section.id)">
+       
         <td>
-          <button mat-icon-button color="primary" aria-label="Edit section" type="button" (click)="startEditing(section)">
-            <mat-icon>edit_note</mat-icon>
-          </button>
-          <button mat-icon-button color="warn" aria-label="Delete section" type="button" (click)="deleteSection(section)">
-            <mat-icon>delete_forever</mat-icon>
-          </button>
+          <span *ngIf="!isEditing(section.id)">{{ section.name }}</span>
+          <mat-form-field *ngIf="isEditing(section.id)" appearance="outline" class="inline-edit-field">
+            <input matInput [formControl]="$any(editForms[section.id].get('name'))" placeholder="Section Name">
+          </mat-form-field>
+        </td>
+        
+      
+        <td>
+          <span *ngIf="!isEditing(section.id)">{{ section.capacity }}</span>
+          <mat-form-field *ngIf="isEditing(section.id)" appearance="outline" class="inline-edit-field">
+            <input matInput type="number" [formControl]="$any(editForms[section.id].get('capacity'))" placeholder="Capacity">
+          </mat-form-field>
+        </td>
+        
+       
+        <td>
+          <div class="action-buttons">
+         
+            <ng-container *ngIf="!isEditing(section.id)">
+              <button mat-icon-button color="primary" aria-label="Quick Edit" type="button" 
+                      (click)="startQuickEdit(section)" matTooltip="Quick Edit" class="quick-edit-btn">
+                <mat-icon>edit_note</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" aria-label="Delete section" type="button" 
+                      (click)="deleteSection(section)" matTooltip="Delete Section">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </ng-container>
+        
+            <ng-container *ngIf="isEditing(section.id)">
+              <button mat-icon-button color="primary" type="button" 
+                      (click)="saveQuickEdit(section)" matTooltip="Save Changes" class="save-btn">
+                <mat-icon>save</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" type="button" 
+                      (click)="cancelEdit()" matTooltip="Cancel" class="cancel-btn">
+                <mat-icon>close</mat-icon>
+              </button>
+            </ng-container>
+          </div>
         </td>
       </tr>
     }
   </tbody>
 </table>
-
-<app-section-form *ngIf="isEditing" [sectionToUpdate]="selectedSection" (toBeUpdated)="submitEditedSection($event)"></app-section-form>

@@ -49,6 +49,12 @@ export class UserService {
     return this.httpclient.get<User>(`${this.apiUrl}/${id}`);
   }
 
+  userExists(email : string) : Observable<boolean>{
+     return this.httpclient.get<boolean>(`https://localhost:7231/api/Users/userExists?email=${email}`);
+  }
+
+  
+
   updateUser(id: number, user: User): Observable<User> {
     return this.httpclient.put<User>(`${this.apiUrl}/${id}`, user);
   }

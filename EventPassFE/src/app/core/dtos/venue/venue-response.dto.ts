@@ -2,7 +2,7 @@
 export interface VenueResponseDto {
   id: number;
   name: string;
-  address: string;  
+  adress: string;  
   city: string;
   country: string;
   postalCode: number;
