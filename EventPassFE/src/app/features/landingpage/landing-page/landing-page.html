@@ -8,13 +8,31 @@
       
       <!-- Search Bar -->
       <div class="search-container">
-        <mat-form-field appearance="outline" class="search-field">
-          <mat-icon matPrefix class="search-icon">search</mat-icon>
-          <input matInput placeholder="Search for events, artists, or venues..." [(ngModel)]="searchQuery">
-          <button mat-icon-button matSuffix *ngIf="searchQuery" (click)="searchQuery = ''">
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
+        <div class="search-input-wrapper">
+          <mat-form-field appearance="outline" class="search-field">
+            <mat-icon matPrefix class="search-icon">search</mat-icon>
+            <input matInput 
+              placeholder="Search for events, artists, or venues..." 
+              [(ngModel)]="searchQuery"
+              (input)="onSearchInput()"
+              (focus)="onSearchFocus()"
+              (blur)="onSearchBlur()">
+            <button mat-icon-button matSuffix *ngIf="searchQuery" (click)="clearSearch()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+          
+          <!-- Search Suggestions Dropdown -->
+          <div class="search-suggestions" *ngIf="showSuggestions && suggestions.length > 0">
+            <div 
+              class="suggestion-item" 
+              *ngFor="let suggestion of suggestions"
+              (mousedown)="selectSuggestion(suggestion)">
+              <mat-icon class="suggestion-icon">search</mat-icon>
+              <span>{{ suggestion }}</span>
+            </div>
+          </div>
+        </div>
         
         <button mat-raised-button color="primary" class="search-button" (click)="onSearch()">
           <mat-icon>search</mat-icon>

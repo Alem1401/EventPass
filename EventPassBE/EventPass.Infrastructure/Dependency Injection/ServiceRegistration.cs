@@ -14,6 +14,7 @@ namespace EventPass.Infrastructure.Dependency_Injection
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IPdfService, PdfService>();  
             services.AddScoped<IQrService, QrService>();
+            services.AddScoped<ISearchService, SearchService>();    
             return services;
         }
     }

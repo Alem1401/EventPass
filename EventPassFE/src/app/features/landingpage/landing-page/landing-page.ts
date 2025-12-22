@@ -10,6 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { EventCardComponent } from '../event-card/event-card';
 import { PluralizePipe } from '../../../core/pipes/pluralize.pipe';
 import { EventService } from '../../../core/services/event-service';
+import { SearchService } from '../../../core/services/search-service';
 import { ResponseEventDto } from '../../../core/models/event.model';
 
 @Component({
@@ -35,12 +36,17 @@ export class LandingPageComponent implements OnInit {
   selectedCategory: string = 'all';
   loading: boolean = false;
   
+  
+  suggestions: string[] = [];
+  showSuggestions: boolean = false;
+  
   events_ : ResponseEventDto[] = [];
 
 
   filteredEvents = [...this.events_];
 
   eventService = inject(EventService)
+  searchService = inject(SearchService)
   ngOnInit(): void {
    this.eventService.getAllEvents().subscribe({
     next: (response) => {this.events_ = response
@@ -50,7 +56,44 @@ export class LandingPageComponent implements OnInit {
   }
 
   onSearch(): void {
+    this.showSuggestions = false;
     this.filterEvents();
+  }
+
+  onSearchInput(): void {
+    if (this.searchQuery.trim().length > 0) {
+      this.searchService.getSearchSuggestiosn(this.searchQuery).subscribe({
+        next: (results) => {
+          this.suggestions = results;
+          this.showSuggestions = true;
+        }
+      });
+    } else {
+      this.suggestions = [];
+      this.showSuggestions = false;
+    }
+  }
+
+  onSearchFocus(): void {
+    if (this.suggestions.length > 0) {
+      this.showSuggestions = true;
+    }
+  }
+
+  onSearchBlur(): void {
+    this.showSuggestions = false;
+  }
+
+  selectSuggestion(suggestion: string): void {
+    this.searchQuery = suggestion;
+    this.showSuggestions = false;
+   
+  }
+
+  clearSearch(): void {
+    this.searchQuery = '';
+    this.suggestions = [];
+    this.showSuggestions = false;
   }
 
   filterByCategory(category: string): void {
