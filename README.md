@@ -3,7 +3,7 @@
 ![.NET](https://img.shields.io/badge/.NET-8.0-blue)
 ![Angular](https://img.shields.io/badge/Angular-20.0-red)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
+
 
 **EventPass** is a modern web application for discovering events, browsing details, and purchasing tickets. The platform also includes a comprehensive **Admin Panel** for managing the entire event ecosystem.
 
