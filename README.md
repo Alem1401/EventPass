@@ -152,7 +152,7 @@ The API follows RESTful principles with the following main endpoints:
 - **Performers**: `/api/performers` - Artist and performer data
 - **Users**: `/api/users` - User account management
 
-**Swagger Documentation**: Available at `http://localhost:5000/swagger` when running in development mode
+
 
 ---
 
@@ -187,56 +187,4 @@ export const environment = {
 };
 ```
 
----
 
-## 🗺️ Roadmap
-
-- [ ] Payment gateway integration (Stripe/PayPal)
-- [ ] Email notifications for ticket purchases
-- [ ] QR code generation for tickets
-- [ ] Mobile app (React Native/Flutter)
-- [ ] QR code ticket validation system
-- [ ] Multi-language support (i18n)
-- [ ] Social media integration
-- [ ] Advanced analytics dashboard
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. **Fork** the repository
-2. Create a **feature branch** (`git checkout -b feature/amazing-feature`)
-3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
-4. **Push** to the branch (`git push origin feature/amazing-feature`)
-5. Open a **Pull Request**
-
-Please ensure your code follows the existing code style and includes appropriate tests.
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 👨‍💻 Author
-
-**Alem1401**
-- GitHub: [@Alem1401](https://github.com/Alem1401)
-- Project Link: [https://github.com/Alem1401/EventPass](https://github.com/Alem1401/EventPass)
-
----
-
-## 🙏 Acknowledgments
-
-- Angular Team for the amazing framework
-- .NET Community for Clean Architecture guidance
-- Microsoft for excellent documentation and tools
-- All contributors who help improve this project
-
----
-
-**⭐ If you find this project useful, please consider giving it a star!**
